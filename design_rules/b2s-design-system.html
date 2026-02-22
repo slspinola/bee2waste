@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2S Design System v1.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f7; --bg-card: #fff; --bg-secondary: #f7f9fb;
+  --text-primary: #1a2b3c; --text-secondary: #5c6b7a; --text-muted: #9aa5b1;
+  --border: #e2e8f0; --blue-600: #0077b6; --blue-500: #0096c7; --blue-400: #00b4d8;
+  --blue-300: #48cae4; --blue-200: #90e0ef; --blue-100: #caf0f8; --blue-50: #e8f7fa;
+  --green-500: #10b981; --green-400: #34d399; --green-100: #d1fae5; --green-50: #ecfdf5;
+  --red-500: #ef4444; --red-400: #f87171; --red-100: #fee2e2; --red-50: #fef2f2;
+  --amber-500: #f59e0b; --amber-400: #fbbf24; --amber-100: #fef3c7; --amber-50: #fffbeb;
+  --b2s-red: #f93f26; --b2s-petro: #5a6268;
+  --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 20px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text-primary); }
+
+/* Layout */
+.page { max-width: 100%; overflow-x: hidden; }
+header { padding: 32px 24px 24px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+header h1 { font-size: clamp(20px, 4vw, 32px); font-weight: 700; }
+header p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+section { padding: 32px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+.section-header { padding: 0 24px 16px; }
+.section-header h2 { font-size: clamp(16px, 3vw, 22px); font-weight: 700; }
+.section-header p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+.section-header .num { color: var(--blue-500); font-weight: 700; margin-right: 6px; }
+
+/* Scrollable rows */
+.scroll-row {
+  display: flex; gap: 12px; overflow-x: auto; padding: 0 24px 12px;
+  scrollbar-width: thin; scrollbar-color: var(--blue-200) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-row::-webkit-scrollbar { height: 6px; }
+.scroll-row::-webkit-scrollbar-track { background: transparent; }
+.scroll-row::-webkit-scrollbar-thumb { background: var(--blue-200); border-radius: 3px; }
+.scroll-row > * { flex-shrink: 0; }
+
+/* Sub labels */
+.sub-label { padding: 12px 24px 6px; font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+
+/* Color swatches */
+.swatch { width: 100px; border-radius: var(--radius-md); overflow: hidden; text-align: center; }
+.swatch-rect { width: 100%; height: 56px; }
+.swatch-name { font-size: 11px; font-weight: 600; padding: 6px 0 1px; color: var(--text-primary); }
+.swatch-hex { font-size: 10px; color: var(--text-muted); padding-bottom: 6px; }
+.swatch-lg { width: 140px; }
+.swatch-lg .swatch-rect { height: 72px; display: flex; align-items: center; justify-content: center; }
+.swatch-lg .swatch-rect span { font-size: 14px; font-weight: 700; color: white; }
+
+/* Typography samples */
+.typo-sample { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 20px; min-width: 200px; }
+.typo-sample .label { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+
+/* Spacing bars */
+.space-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.space-bar { background: var(--blue-500); border-radius: 2px; height: 32px; }
+.space-item .val { font-size: 11px; font-weight: 600; color: var(--text-primary); }
+.space-item .tok { font-size: 10px; color: var(--text-muted); }
+
+/* Radius demos */
+.radius-demo { width: 64px; height: 48px; border: 2px solid var(--blue-500); background: var(--bg-card); }
+.radius-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.radius-item .val { font-size: 11px; font-weight: 600; }
+.radius-item .tok { font-size: 10px; color: var(--text-muted); }
+
+/* Buttons */
+.btn { height: 40px; padding: 0 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+.btn-primary { background: var(--blue-500); color: white; }
+.btn-secondary { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border); }
+.btn-success { background: var(--green-500); color: white; }
+.btn-danger { background: var(--red-500); color: white; }
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px dashed var(--border); }
+
+/* Badges */
+.badge { height: 26px; padding: 0 12px; border-radius: 13px; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.badge-success { background: var(--green-100); color: #059669; }
+.badge-warning { background: var(--amber-100); color: #d97706; }
+.badge-danger { background: var(--red-100); color: #dc2626; }
+.badge-neutral { background: var(--bg-secondary); color: var(--text-secondary); }
+.badge-primary { background: var(--blue-100); color: var(--blue-600); }
+.zone-badge { width: 40px; height: 26px; border-radius: 6px; background: var(--blue-500); color: white; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+
+/* Cards */
+.demo-card { width: 280px; min-height: 140px; border-radius: var(--radius-lg); background: var(--bg-card); border: 1px solid var(--border); padding: 16px; box-shadow: var(--shadow-sm); }
+.demo-card h4 { font-size: 15px; font-weight: 600; }
+.demo-card .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.demo-card hr { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+.demo-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+.demo-card.hover { border-color: var(--blue-400); box-shadow: var(--shadow-md); }
+.demo-card .footnote { font-size: 11px; color: var(--text-muted); margin-top: 12px; }
+.demo-card.hover .footnote { color: var(--blue-400); }
+
+/* Stat cards */
+.stat-card { width: 260px; height: 100px; border-radius: var(--radius-lg); background: var(--bg-secondary); border: 1px solid var(--border); display: flex; align-items: center; padding: 16px; gap: 14px; }
+.stat-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stat-value { font-size: 28px; font-weight: 700; line-height: 1; }
+.stat-label { font-size: 13px; color: var(--text-secondary); }
+.stat-status { font-size: 11px; font-weight: 500; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.stat-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+
+/* Alerts */
+.alert { min-width: 600px; height: 60px; border-radius: var(--radius-md); display: flex; align-items: center; padding: 0 16px; gap: 12px; border-left: 4px solid; position: relative; }
+.alert-danger { background: var(--red-50); border-color: var(--red-50); border-left-color: var(--red-500); }
+.alert-success { background: var(--green-50); border-color: var(--green-50); border-left-color: var(--green-500); }
+.alert-warning { background: var(--amber-50); border-color: var(--amber-50); border-left-color: var(--amber-500); }
+.alert-icon { width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.alert .title { font-size: 14px; font-weight: 600; }
+.alert .desc { font-size: 13px; color: var(--text-secondary); }
+
+/* Forms */
+.form-input { width: 240px; height: 40px; border-radius: var(--radius-md); border: 1px solid var(--border); padding: 0 14px; font-size: 14px; font-family: inherit; background: var(--bg-card); }
+.form-input::placeholder { color: var(--text-muted); }
+.form-input.focus { border-color: var(--blue-400); box-shadow: 0 0 0 3px var(--blue-100); outline: none; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.toggle { width: 44px; height: 24px; border-radius: 12px; position: relative; cursor: pointer; }
+.toggle .knob { width: 20px; height: 20px; border-radius: 50%; background: white; position: absolute; top: 2px; transition: 0.2s; }
+.toggle-off { background: var(--text-muted); }
+.toggle-off .knob { left: 2px; }
+.toggle-on { background: var(--green-500); }
+.toggle-on .knob { left: 22px; }
+
+/* Table */
+.table-wrap { min-width: 700px; border-radius: var(--radius-lg); background: var(--bg-card); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); }
+.table-wrap table { width: 100%; border-collapse: collapse; }
+.table-wrap thead { background: var(--bg-secondary); }
+.table-wrap th { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; text-align: left; padding: 10px 16px; text-transform: uppercase; }
+.table-wrap td { font-size: 13px; padding: 10px 16px; border-top: 1px solid var(--border); color: var(--text-primary); }
+.table-title { font-size: 14px; font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg-secondary); }
+
+/* Sidebar */
+.sidebar-demo { display: flex; min-width: 750px; height: 420px; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.sidebar { width: 240px; background: var(--bg-card); border-right: 1px solid var(--border); padding: 16px; flex-shrink: 0; }
+.sidebar-logo { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+.sidebar-logo .icon { width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--blue-500); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+.sidebar-logo .name { font-size: 15px; font-weight: 700; color: var(--blue-600); }
+.sidebar-logo .desc { font-size: 10px; color: var(--text-muted); }
+.nav-section { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; padding: 8px 0 4px; }
+.nav-item { height: 34px; border-radius: var(--radius-md); display: flex; align-items: center; padding: 0 10px; font-size: 13px; color: var(--text-secondary); margin-bottom: 2px; }
+.nav-item.active { background: var(--blue-50); color: var(--blue-600); font-weight: 500; }
+.main-area { flex: 1; background: var(--bg-secondary); }
+.main-header { height: 52px; background: var(--bg-card); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; }
+.main-header h3 { font-size: 18px; font-weight: 700; }
+
+/* System icons */
+.sys-icon { width: 64px; height: 64px; border-radius: var(--radius-md); background: var(--bg-secondary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.sys-icon svg { width: 24px; height: 24px; stroke: var(--text-secondary); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sys-icon .name { font-size: 8px; color: var(--text-muted); font-weight: 600; }
+
+/* Product icons */
+.product-icon-card { text-align: center; width: 140px; }
+.product-icon-card .icon-wrap { width: 120px; height: 120px; margin: 0 auto; }
+.product-icon-card .pname { font-size: 13px; font-weight: 700; margin-top: 8px; }
+.product-icon-card .lucide-name { font-size: 10px; color: var(--text-muted); font-family: ui-monospace, monospace; }
+.product-icon-card .pdesc { font-size: 10px; color: var(--text-secondary); margin-top: 2px; line-height: 1.3; }
+
+/* Dark product icons section */
+.dark-band { background: #1a2028; padding: 20px 0; margin: 0; }
+.dark-band .sub-label { color: #5c6b7a; }
+
+/* Sizes row */
+.size-row { display: flex; align-items: flex-end; gap: 16px; }
+.size-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.size-label { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+
+/* Footer */
+footer { padding: 24px; text-align: center; border-top: 1px solid var(--border); }
+footer p { font-size: 12px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>B2S Design System</h1>
+  <p>Bee2Solutions © 2025 · v1.2 · Lucide Icons v0.563</p>
+</header>
+
+<!-- ===== 1. COLOR PALETTE ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">1.</span>Paleta de Cores</h2></div>
+
+  <!-- B2S Brand Overrides FIRST -->
+  <div class="sub-label">B2S Brand Overrides</div>
+  <div class="scroll-row">
+    <div class="swatch swatch-lg"><div class="swatch-rect" style="background:#f93f26"><span>B2S Warm Red</span></div><div class="swatch-name">Brand Red 500</div><div class="swatch-hex">#f93f26</div></div>
+    <div class="swatch swatch-lg"><div class="swatch-rect" style="background:#5a6268"><span>Petro Gray</span></div><div class="swatch-name">Petro Gray</div><div class="swatch-hex">#5a6268</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#ff5c45"></div><div class="swatch-name">B2S Red 400</div><div class="swatch-hex">#ff5c45</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#ffe5e2;border:1px solid var(--border)"></div><div class="swatch-name">B2S Red 100</div><div class="swatch-hex">#ffe5e2</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#fff5f4;border:1px solid var(--border)"></div><div class="swatch-name">B2S Red 50</div><div class="swatch-hex">#fff5f4</div></div>
+  </div>
+
+  <div class="sub-label">Blue</div>
+  <div class="scroll-row">
+    <div class="swatch"><div class="swatch-rect" style="background:#023e8a"></div><div class="swatch-name">Blue 700</div><div class="swatch-hex">#023e8a</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#0077b6"></div><div class="swatch-name">Blue 600</div><div class="swatch-hex">#0077b6</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#0096c7"></div><div class="swatch-name">Blue 500</div><div class="swatch-hex">#0096c7</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#00b4d8"></div><div class="swatch-name">Blue 400</div><div class="swatch-hex">#00b4d8</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#48cae4"></div><div class="swatch-name">Blue 300</div><div class="swatch-hex">#48cae4</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#90e0ef"></div><div class="swatch-name">Blue 200</div><div class="swatch-hex">#90e0ef</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#caf0f8;border:1px solid var(--border)"></div><div class="swatch-name">Blue 100</div><div class="swatch-hex">#caf0f8</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#e8f7fa;border:1px solid var(--border)"></div><div class="swatch-name">Blue 50</div><div class="swatch-hex">#e8f7fa</div></div>
+  </div>
+
+  <div class="sub-label">Green · Red · Amber</div>
+  <div class="scroll-row">
+    <div class="swatch"><div class="swatch-rect" style="background:#10b981"></div><div class="swatch-name">Green 500</div><div class="swatch-hex">#10b981</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#34d399"></div><div class="swatch-name">Green 400</div><div class="swatch-hex">#34d399</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#d1fae5;border:1px solid var(--border)"></div><div class="swatch-name">Green 100</div><div class="swatch-hex">#d1fae5</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#ef4444"></div><div class="swatch-name">Red 500</div><div class="swatch-hex">#ef4444</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#f87171"></div><div class="swatch-name">Red 400</div><div class="swatch-hex">#f87171</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#fee2e2;border:1px solid var(--border)"></div><div class="swatch-name">Red 100</div><div class="swatch-hex">#fee2e2</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#f59e0b"></div><div class="swatch-name">Amber 500</div><div class="swatch-hex">#f59e0b</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#fbbf24"></div><div class="swatch-name">Amber 400</div><div class="swatch-hex">#fbbf24</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#fef3c7;border:1px solid var(--border)"></div><div class="swatch-name">Amber 100</div><div class="swatch-hex">#fef3c7</div></div>
+  </div>
+
+  <div class="sub-label">Neutrals · Backgrounds · Text</div>
+  <div class="scroll-row">
+    <div class="swatch"><div class="swatch-rect" style="background:#1a2b3c"></div><div class="swatch-name">text-primary</div><div class="swatch-hex">#1a2b3c</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#5c6b7a"></div><div class="swatch-name">text-secondary</div><div class="swatch-hex">#5c6b7a</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#9aa5b1"></div><div class="swatch-name">text-muted</div><div class="swatch-hex">#9aa5b1</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#ffffff;border:1px solid var(--border)"></div><div class="swatch-name">bg-card</div><div class="swatch-hex">#ffffff</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#f7f9fb;border:1px solid var(--border)"></div><div class="swatch-name">bg-secondary</div><div class="swatch-hex">#f7f9fb</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#f0f4f7;border:1px solid var(--border)"></div><div class="swatch-name">bg-hover</div><div class="swatch-hex">#f0f4f7</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#e2e8f0;border:1px solid #cbd5e0"></div><div class="swatch-name">border</div><div class="swatch-hex">#e2e8f0</div></div>
+  </div>
+
+  <div class="sub-label">Dark Theme</div>
+  <div class="scroll-row" style="background:#1a2028;margin:0 -24px;padding:12px 24px;border-radius:0;">
+    <div class="swatch"><div class="swatch-rect" style="background:#1a2028;border:1px solid #2d3748"></div><div class="swatch-name" style="color:#e8edf2">bg-card</div><div class="swatch-hex">#1a2028</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#242d38;border:1px solid #2d3748"></div><div class="swatch-name" style="color:#e8edf2">bg-secondary</div><div class="swatch-hex">#242d38</div></div>
+    <div class="swatch"><div class="swatch-rect" style="background:#2d3748;border:1px solid #4a5568"></div><div class="swatch-name" style="color:#e8edf2">bg-hover</div><div class="swatch-hex">#2d3748</div></div>
+  </div>
+</section>
+
+<!-- ===== 2. TYPOGRAPHY ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">2.</span>Tipografia</h2><p>Inter · Font weights: 400, 500, 600, 700</p></div>
+  <div class="scroll-row">
+    <div class="typo-sample"><div class="label">H1 — 32px / Bold</div><div style="font-size:32px;font-weight:700">Dashboard</div></div>
+    <div class="typo-sample"><div class="label">H2 — 24px / Bold</div><div style="font-size:24px;font-weight:700">Zonas de Rega</div></div>
+    <div class="typo-sample"><div class="label">H3 — 18px / SemiBold</div><div style="font-size:18px;font-weight:600">Section Title</div></div>
+    <div class="typo-sample"><div class="label">Body — 14px / Regular</div><div style="font-size:14px">Texto de corpo standard usado em todo o sistema.</div></div>
+    <div class="typo-sample"><div class="label">Small — 12px / Medium</div><div style="font-size:12px;font-weight:500;color:var(--text-secondary)">Detalhes e metadados</div></div>
+    <div class="typo-sample"><div class="label">Overline — 11px / SemiBold / Uppercase</div><div style="font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:0.5px;text-transform:uppercase">Nav Section · Status</div></div>
+    <div class="typo-sample"><div class="label">KPI — 32px / Bold</div><div style="font-size:32px;font-weight:700">2.340<span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:4px">litros</span></div></div>
+  </div>
+</section>
+
+<!-- ===== 3. SPACING & RADIUS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">3.</span>Espaçamento & Radius</h2><p>Base 4px · Border-radius scale</p></div>
+  <div class="scroll-row" style="align-items:flex-end;">
+    <div class="space-item"><div class="space-bar" style="width:4px"></div><div class="val">4</div><div class="tok">space-1</div></div>
+    <div class="space-item"><div class="space-bar" style="width:8px"></div><div class="val">8</div><div class="tok">space-2</div></div>
+    <div class="space-item"><div class="space-bar" style="width:12px"></div><div class="val">12</div><div class="tok">space-3</div></div>
+    <div class="space-item"><div class="space-bar" style="width:16px"></div><div class="val">16</div><div class="tok">space-4</div></div>
+    <div class="space-item"><div class="space-bar" style="width:20px"></div><div class="val">20</div><div class="tok">space-5</div></div>
+    <div class="space-item"><div class="space-bar" style="width:24px"></div><div class="val">24</div><div class="tok">space-6</div></div>
+    <div class="space-item"><div class="space-bar" style="width:32px"></div><div class="val">32</div><div class="tok">space-8</div></div>
+    <div class="space-item"><div class="space-bar" style="width:40px"></div><div class="val">40</div><div class="tok">space-10</div></div>
+    <div class="space-item"><div class="space-bar" style="width:48px"></div><div class="val">48</div><div class="tok">space-12</div></div>
+    <div class="space-item"><div class="space-bar" style="width:64px"></div><div class="val">64</div><div class="tok">space-16</div></div>
+  </div>
+  <div class="sub-label">Border Radius</div>
+  <div class="scroll-row">
+    <div class="radius-item"><div class="radius-demo" style="border-radius:6px"></div><div class="val">6px</div><div class="tok">radius-sm</div></div>
+    <div class="radius-item"><div class="radius-demo" style="border-radius:10px"></div><div class="val">10px</div><div class="tok">radius-md</div></div>
+    <div class="radius-item"><div class="radius-demo" style="border-radius:14px"></div><div class="val">14px</div><div class="tok">radius-lg</div></div>
+    <div class="radius-item"><div class="radius-demo" style="border-radius:20px"></div><div class="val">20px</div><div class="tok">radius-xl</div></div>
+    <div class="radius-item"><div class="radius-demo" style="border-radius:9999px"></div><div class="val">9999px</div><div class="tok">radius-full</div></div>
+  </div>
+</section>
+
+<!-- ===== 4. BUTTONS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">4.</span>Botões</h2><p>Padding: 12px 20px · Border-radius: 10px · Font: 14px / 600</p></div>
+  <div class="scroll-row" style="align-items:center;">
+    <button class="btn btn-primary">+ Primário</button>
+    <button class="btn btn-secondary">Secundário</button>
+    <button class="btn btn-success">Sucesso</button>
+    <button class="btn btn-danger">Perigo</button>
+    <button class="btn btn-ghost">Ghost</button>
+  </div>
+</section>
+
+<!-- ===== 5. BADGES ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">5.</span>Badges</h2></div>
+  <div class="scroll-row" style="align-items:center;">
+    <span class="badge badge-success">● Ótimo</span>
+    <span class="badge badge-warning">● Regular</span>
+    <span class="badge badge-danger">● Crítico</span>
+    <span class="badge badge-neutral">Inativo</span>
+    <span class="badge badge-primary">Primary</span>
+    <span class="zone-badge">Z01</span>
+    <span class="zone-badge">Z02</span>
+    <span class="zone-badge">Z03</span>
+  </div>
+</section>
+
+<!-- ===== 6. CARDS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">6.</span>Cards</h2><p>Border-radius: 14px · Padding: 16-20px · Border: 1px solid #e2e8f0</p></div>
+  <div class="scroll-row">
+    <div class="demo-card"><h4>Título do Card</h4><div class="sub">Subtítulo opcional</div><hr><p>Conteúdo do card com informação relevante.</p><div class="footnote">Card padrão — Default State</div></div>
+    <div class="demo-card hover"><h4>Card com Hover</h4><div class="sub">Estado interativo</div><hr><p>Border muda para blue-400, shadow aumenta.</p><div class="footnote">:hover — border: #00b4d8, shadow-md</div></div>
+  </div>
+</section>
+
+<!-- ===== 7. STAT CARDS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">7.</span>Stat Cards</h2></div>
+  <div class="scroll-row">
+    <div class="stat-card"><div class="stat-icon" style="background:var(--blue-100)"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#0077b6" fill="none" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div><div class="stat-value">5</div><div class="stat-label">Zonas de Rega</div><div class="stat-status" style="color:#059669"><span class="stat-dot" style="background:#059669"></span>Operacionais</div></div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:var(--green-100)"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#059669" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><line x1="12" y1="5" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="19"/><line x1="5" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="19" y2="12"/></svg></div><div><div class="stat-value">15</div><div class="stat-label">Eletroválvulas</div></div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:var(--amber-100)"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#f59e0b" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#f59e0b"/></svg></div><div><div class="stat-value">3</div><div class="stat-label">Alertas Ativos</div></div></div>
+    <div class="stat-card"><div class="stat-icon" style="background:var(--red-100)"><svg width="24" height="24" viewBox="0 0 24 24" stroke="#ef4444" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div><div><div class="stat-value">1</div><div class="stat-label">Fugas Detectadas</div></div></div>
+  </div>
+</section>
+
+<!-- ===== 8. ALERTS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">8.</span>Alertas</h2></div>
+  <div class="scroll-row" style="flex-direction:column;gap:10px;">
+    <div class="alert alert-danger"><div class="alert-icon" style="background:var(--red-500)"><svg width="18" height="18" viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="white"/></svg></div><div><div class="title" style="color:#dc2626">Fuga detectada na Zona Oeste</div><div class="desc">Desvio de consumo de 23% detectado.</div></div></div>
+    <div class="alert alert-success"><div class="alert-icon" style="background:var(--green-500)"><svg width="18" height="18" viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/></svg></div><div><div class="title" style="color:#059669">Ciclo concluído</div><div class="desc">Zona Norte regada com sucesso.</div></div></div>
+    <div class="alert alert-warning"><div class="alert-icon" style="background:var(--amber-500)"><svg width="18" height="18" viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="white"/></svg></div><div><div class="title" style="color:#d97706">Pressão baixa na Zona Sul</div><div class="desc">Verificar bomba principal e válvulas.</div></div></div>
+  </div>
+</section>
+
+<!-- ===== 9. FORMS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">9.</span>Formulários</h2></div>
+  <div class="scroll-row" style="align-items:flex-end;">
+    <div class="form-group"><div class="form-label">Default</div><input class="form-input" placeholder="Placeholder text..." readonly></div>
+    <div class="form-group"><div class="form-label">Focus</div><input class="form-input focus" value="Input com texto" readonly></div>
+    <div class="form-group"><div class="form-label">Preenchido</div><input class="form-input" value="Valor preenchido" readonly></div>
+  </div>
+  <div class="sub-label">Toggle Switches</div>
+  <div class="scroll-row" style="align-items:center;gap:20px;">
+    <div style="display:flex;align-items:center;gap:8px"><div class="toggle toggle-off"><div class="knob"></div></div><span style="font-size:13px;color:var(--text-secondary)">Desligado</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><div class="toggle toggle-on"><div class="knob"></div></div><span style="font-size:13px;color:#059669">Ligado</span></div>
+  </div>
+</section>
+
+<!-- ===== 10. TABLE ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">10.</span>Tabela</h2></div>
+  <div class="scroll-row">
+    <div class="table-wrap">
+      <div class="table-title">Histórico de Regas</div>
+      <table>
+        <thead><tr><th>Zona</th><th>Data</th><th>Duração</th><th>Consumo</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td><span class="zone-badge">Z01</span></td><td>2025-01-15 06:00</td><td>45 min</td><td>2.340 L</td><td><span class="badge badge-success">Ótimo</span></td></tr>
+          <tr><td><span class="zone-badge">Z02</span></td><td>2025-01-15 07:30</td><td>30 min</td><td>1.850 L</td><td><span class="badge badge-warning">Regular</span></td></tr>
+          <tr><td><span class="zone-badge">Z03</span></td><td>2025-01-14 18:00</td><td>60 min</td><td>3.120 L</td><td><span class="badge badge-danger">Crítico</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11. SIDEBAR / NAV ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">11.</span>Sidebar & Navegação</h2></div>
+  <div class="scroll-row">
+    <div class="sidebar-demo">
+      <div class="sidebar">
+        <div class="sidebar-logo"><div class="icon">B</div><div><div class="name">B2S Aqua</div><div class="desc">Gestão de Rega</div></div></div>
+        <div class="nav-section">Navegação</div>
+        <div class="nav-item active">Dashboard</div>
+        <div class="nav-item">Zonas</div>
+        <div class="nav-item">Válvulas</div>
+        <div class="nav-item">Programações</div>
+        <div class="nav-item">Histórico</div>
+        <div class="nav-section" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">Configurações</div>
+        <div class="nav-item">Alertas</div>
+        <div class="nav-item">Definições</div>
+      </div>
+      <div class="main-area"><div class="main-header"><h3>Dashboard</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 12. SYSTEM ICONS ===== -->
+<section>
+  <div class="section-header"><h2><span class="num">12.</span>Ícones de Sistema</h2><p>Lucide · SVG Stroke · 24×24 · stroke-width: 2</p></div>
+  <div class="scroll-row">
+    <div class="sys-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div class="name">Dashboard</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><div class="name">Zona</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="4" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="20"/><line x1="4" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="20" y2="12"/></svg><div class="name">Válvula</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><div class="name">Água</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 5-6"/></svg><div class="name">Analytics</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24" stroke="#10b981"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg><div class="name">Sucesso</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24" stroke="#f59e0b"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#f59e0b"/></svg><div class="name">Aviso</div></div>
+    <div class="sys-icon"><svg viewBox="0 0 24 24" stroke="#ef4444"><circle cx="12" cy="12" r="9"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg><div class="name">Erro</div></div>
+  </div>
+</section>
+
+<!-- ===== 13. PRODUCT ICONS ===== -->
+<section style="padding-bottom:0;">
+  <div class="section-header"><h2><span class="num">13.</span>Ícones de Produto</h2><p>Lucide Icons · 200×200 · White on #f93f26 · Radius 40px · Scale ×6.25</p></div>
+
+  <div class="sub-label">Light Mode</div>
+  <div class="scroll-row" style="gap:16px;">
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></g></svg></div><div class="pname">Bee2Waste</div><div class="lucide-name">Recycle</div><div class="pdesc">Gestão de Recolha de Resíduos</div></div>
+
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></g></svg></div><div class="pname">Bee2Water</div><div class="lucide-name">Droplets</div><div class="pdesc">Gestão de Consumo de Água</div></div>
+
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></g></svg></div><div class="pname">Bee2Crop</div><div class="lucide-name">Sprout</div><div class="pdesc">Rega e Fertilização Inteligente</div></div>
+
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 4.409 16.712 4.2 18.1 3.926 19.743 3.014 20.732 2 22"/><path d="M2 22 17 7"/></g></svg></div><div class="pname">Bee2Green</div><div class="lucide-name">LeafyGreen</div><div class="pdesc">Gestão de Água e Espaços Verdes</div></div>
+
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></g></svg></div><div class="pname">Bee2Lighting</div><div class="lucide-name">Lightbulb</div><div class="pdesc">Gestão de Iluminação Pública</div></div>
+
+    <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g></svg></div><div class="pname">Bee2Energy</div><div class="lucide-name">Zap</div><div class="pdesc">Gestão de Eficiência Energética</div></div>
+  </div>
+
+  <!-- Dark mode -->
+  <div class="dark-band">
+    <div class="sub-label" style="color:#5c6b7a;">Dark Mode</div>
+    <div class="scroll-row" style="gap:16px;">
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Waste</div><div class="lucide-name">Recycle</div></div>
+
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Water</div><div class="lucide-name">Droplets</div></div>
+
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Crop</div><div class="lucide-name">Sprout</div></div>
+
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 4.409 16.712 4.2 18.1 3.926 19.743 3.014 20.732 2 22"/><path d="M2 22 17 7"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Green</div><div class="lucide-name">LeafyGreen</div></div>
+
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Lighting</div><div class="lucide-name">Lightbulb</div></div>
+
+      <div class="product-icon-card"><div class="icon-wrap"><svg width="120" height="120" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g></svg></div><div class="pname" style="color:#e8edf2">Bee2Energy</div><div class="lucide-name">Zap</div></div>
+    </div>
+
+    <!-- Sizes row in dark -->
+    <div class="sub-label" style="color:#5c6b7a;margin-top:8px;">Tamanhos: 80px · 56px · 44px</div>
+    <div class="scroll-row" style="align-items:flex-end;gap:12px;">
+      <svg width="80" height="80" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></g></svg>
+      <svg width="56" height="56" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></g></svg>
+      <svg width="44" height="44" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></g></svg>
+      <svg width="80" height="80" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M2 22c1.25-.987 2.27-1.975 3.9-2.2a5.56 5.56 0 0 1 3.8 1.5 4 4 0 0 0 6.187-2.353 3.5 3.5 0 0 0 3.69-5.116A3.5 3.5 0 0 0 20.95 8 3.5 3.5 0 1 0 16 3.05a3.5 3.5 0 0 0-5.831 1.373 3.5 3.5 0 0 0-5.116 3.69 4 4 0 0 0-2.348 6.155C3.499 15.42 4.409 16.712 4.2 18.1 3.926 19.743 3.014 20.732 2 22"/><path d="M2 22 17 7"/></g></svg>
+      <svg width="56" height="56" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></g></svg>
+      <svg width="44" height="44" viewBox="0 0 200 200"><rect width="200" height="200" rx="40" fill="#f93f26"/><g transform="translate(25,25) scale(6.25)" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></g></svg>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>B2S Design System v1.2</strong> · Bee2Solutions © 2025 · Lucide Icons v0.563</p>
+</footer>
+
+</div>
+</body>
+</html>

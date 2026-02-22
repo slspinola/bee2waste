@@ -1,0 +1,398 @@
+/* ============================================================
+   B2S DESIGN SYSTEM — CSS Design Tokens
+   Version: 1.0.0
+   Generated from: b2s-tokens.json
+   ============================================================ */
+
+/* ============================================================
+   CORE PRIMITIVES
+   These raw values should NOT be used directly in components.
+   Use the semantic tokens below instead.
+   ============================================================ */
+:root {
+  /* --- Color Primitives: Blue (Primary) --- */
+  --b2s-color-blue-600: #0077b6;
+  --b2s-color-blue-500: #0096c7;
+  --b2s-color-blue-400: #00b4d8;
+  --b2s-color-blue-300: #48cae4;
+  --b2s-color-blue-200: #90e0ef;
+  --b2s-color-blue-100: #caf0f8;
+  --b2s-color-blue-50:  #e8f7fa;
+
+  /* --- Color Primitives: Green (Success) --- */
+  --b2s-color-green-600: #059669;
+  --b2s-color-green-500: #10b981;
+  --b2s-color-green-400: #34d399;
+  --b2s-color-green-100: #d1fae5;
+  --b2s-color-green-50:  #ecfdf5;
+
+  /* --- Color Primitives: Red (Danger) --- */
+  --b2s-color-red-600: #dc2626;
+  --b2s-color-red-500: #ef4444;
+  --b2s-color-red-400: #f87171;
+  --b2s-color-red-100: #fee2e2;
+  --b2s-color-red-50:  #fef2f2;
+
+  /* --- Color Primitives: Amber (Warning) --- */
+  --b2s-color-amber-600: #d97706;
+  --b2s-color-amber-500: #f59e0b;
+  --b2s-color-amber-400: #fbbf24;
+  --b2s-color-amber-100: #fef3c7;
+  --b2s-color-amber-50:  #fffbeb;
+
+  /* --- Color Primitives: Neutral --- */
+  --b2s-color-neutral-900: #0f1419;
+  --b2s-color-neutral-800: #1a2028;
+  --b2s-color-neutral-700: #1a2b3c;
+  --b2s-color-neutral-600: #242d38;
+  --b2s-color-neutral-500: #2d3748;
+  --b2s-color-neutral-400: #5c6b7a;
+  --b2s-color-neutral-300: #8899a8;
+  --b2s-color-neutral-200: #9aa5b1;
+  --b2s-color-neutral-100: #e2e8f0;
+  --b2s-color-neutral-75:  #f0f4f7;
+  --b2s-color-neutral-50:  #f7f9fb;
+  --b2s-color-neutral-0:   #ffffff;
+
+  /* --- Color Primitives: B2S Brand --- */
+  --b2s-color-brand-red-600: #c41e1e;
+  --b2s-color-brand-red-500: #f93f26;
+  --b2s-color-brand-red-400: #ff5c45;
+  --b2s-color-brand-red-100: #ffe5e2;
+  --b2s-color-brand-red-50:  #fff5f4;
+
+  --b2s-color-brand-gray-600: #3d4448;
+  --b2s-color-brand-gray-500: #5a6268;
+  --b2s-color-brand-gray-400: #6c757d;
+  --b2s-color-brand-gray-100: #e2e5e7;
+  --b2s-color-brand-gray-50:  #f4f5f6;
+
+  /* --- Typography --- */
+  --b2s-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --b2s-font-family-mono: 'SF Mono', ui-monospace, monospace;
+
+  --b2s-font-size-xs:   11px;
+  --b2s-font-size-sm:   12px;
+  --b2s-font-size-md:   13px;
+  --b2s-font-size-base: 14px;
+  --b2s-font-size-body: 15px;
+  --b2s-font-size-lg:   16px;
+  --b2s-font-size-xl:   18px;
+  --b2s-font-size-2xl:  20px;
+  --b2s-font-size-3xl:  24px;
+  --b2s-font-size-4xl:  28px;
+  --b2s-font-size-5xl:  32px;
+
+  --b2s-font-weight-regular:  400;
+  --b2s-font-weight-medium:   500;
+  --b2s-font-weight-semibold: 600;
+  --b2s-font-weight-bold:     700;
+
+  --b2s-line-height-tight:   1;
+  --b2s-line-height-snug:    1.3;
+  --b2s-line-height-normal:  1.6;
+  --b2s-line-height-relaxed: 1.7;
+
+  --b2s-letter-spacing-normal: 0;
+  --b2s-letter-spacing-wide:   0.5px;
+
+  /* --- Spacing (4px base) --- */
+  --b2s-space-1:  4px;
+  --b2s-space-2:  8px;
+  --b2s-space-3:  12px;
+  --b2s-space-4:  16px;
+  --b2s-space-5:  20px;
+  --b2s-space-6:  24px;
+  --b2s-space-8:  32px;
+  --b2s-space-10: 40px;
+  --b2s-space-12: 48px;
+  --b2s-space-16: 64px;
+
+  /* --- Border Radius --- */
+  --b2s-radius-sm:   6px;
+  --b2s-radius-md:   10px;
+  --b2s-radius-lg:   14px;
+  --b2s-radius-xl:   20px;
+  --b2s-radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --b2s-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --b2s-shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --b2s-shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+  /* --- Transitions --- */
+  --b2s-duration-fast:   150ms;
+  --b2s-duration-normal: 200ms;
+  --b2s-duration-slow:   300ms;
+  --b2s-easing-default:  ease;
+
+  /* --- Sizing: Icons --- */
+  --b2s-icon-sm:   14px;
+  --b2s-icon-md:   18px;
+  --b2s-icon-base: 20px;
+  --b2s-icon-lg:   22px;
+  --b2s-icon-xl:   24px;
+  --b2s-icon-2xl:  28px;
+
+  /* --- Sizing: Layout --- */
+  --b2s-sidebar-width:     280px;
+  --b2s-header-height:     70px;
+  --b2s-content-max-width: 1400px;
+
+  /* --- Sizing: Components --- */
+  --b2s-stat-icon-size:    56px;
+  --b2s-alert-icon-size:   44px;
+  --b2s-section-icon-size: 40px;
+  --b2s-logo-icon-size:    44px;
+  --b2s-toggle-width:      48px;
+  --b2s-toggle-height:     28px;
+  --b2s-toggle-knob:       22px;
+  --b2s-zone-badge-height: 28px;
+  --b2s-zone-badge-min-w:  40px;
+
+  /* --- Border Width --- */
+  --b2s-border-width-default: 1px;
+  --b2s-border-width-thick:   2px;
+  --b2s-border-width-accent:  4px;
+
+  /* --- Iconography: Lucide (lucide.dev) --- */
+  --b2s-icon-library:        lucide;
+  --b2s-icon-viewbox:        0 0 24 24;
+  --b2s-icon-stroke-width:   2;
+  --b2s-icon-stroke-linecap: round;
+  --b2s-icon-stroke-linejoin:round;
+  --b2s-icon-fill:           none;
+
+  /* Icon semantic colors */
+  --b2s-icon-color-default:    var(--b2s-color-neutral-400);
+  --b2s-icon-color-muted:      var(--b2s-color-neutral-200);
+  --b2s-icon-color-primary:    var(--b2s-color-blue-600);
+  --b2s-icon-color-success:    var(--b2s-color-green-600);
+  --b2s-icon-color-warning:    var(--b2s-color-amber-500);
+  --b2s-icon-color-danger:     var(--b2s-color-red-600);
+  --b2s-icon-color-on-primary: #ffffff;
+
+  /* --- Product Icons --- */
+  --b2s-product-icon-bg:       var(--b2s-color-brand-red-500);
+  --b2s-product-icon-fg:       #ffffff;
+  --b2s-product-icon-radius:   40px;
+  --b2s-product-icon-viewbox:  200;
+  --b2s-product-icon-scale:    6.25;
+  --b2s-product-icon-offset:   25px;
+}
+
+
+/* ============================================================
+   SEMANTIC TOKENS — LIGHT THEME (default)
+   Use THESE in components, not the primitives above.
+   ============================================================ */
+:root,
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-body:      var(--b2s-color-neutral-75);
+  --bg-sidebar:   var(--b2s-color-neutral-0);
+  --bg-card:      var(--b2s-color-neutral-0);
+  --bg-secondary: var(--b2s-color-neutral-50);
+  --bg-hover:     var(--b2s-color-neutral-75);
+
+  /* Text */
+  --text-primary:   var(--b2s-color-neutral-700);
+  --text-secondary: var(--b2s-color-neutral-400);
+  --text-muted:     var(--b2s-color-neutral-200);
+
+  /* Border */
+  --border: var(--b2s-color-neutral-100);
+
+  /* Primary */
+  --primary-default: var(--b2s-color-blue-500);
+  --primary-hover:   var(--b2s-color-blue-600);
+  --primary-accent:  var(--b2s-color-blue-400);
+  --primary-subtle:  var(--b2s-color-blue-100);
+  --primary-surface: var(--b2s-color-blue-50);
+
+  /* Success */
+  --success-default: var(--b2s-color-green-500);
+  --success-hover:   var(--b2s-color-green-600);
+  --success-subtle:  var(--b2s-color-green-100);
+  --success-surface: var(--b2s-color-green-50);
+
+  /* Danger */
+  --danger-default:  var(--b2s-color-red-500);
+  --danger-hover:    var(--b2s-color-red-600);
+  --danger-subtle:   var(--b2s-color-red-100);
+  --danger-surface:  var(--b2s-color-red-50);
+
+  /* Warning */
+  --warning-default: var(--b2s-color-amber-500);
+  --warning-hover:   var(--b2s-color-amber-600);
+  --warning-subtle:  var(--b2s-color-amber-100);
+  --warning-surface: var(--b2s-color-amber-50);
+
+  /* Shadows */
+  --shadow-sm: var(--b2s-shadow-sm);
+  --shadow-md: var(--b2s-shadow-md);
+  --shadow-lg: var(--b2s-shadow-lg);
+}
+
+
+/* ============================================================
+   SEMANTIC TOKENS — DARK THEME
+   ============================================================ */
+[data-theme="dark"] {
+  --bg-body:      var(--b2s-color-neutral-900);
+  --bg-sidebar:   var(--b2s-color-neutral-800);
+  --bg-card:      var(--b2s-color-neutral-800);
+  --bg-secondary: var(--b2s-color-neutral-600);
+  --bg-hover:     var(--b2s-color-neutral-500);
+
+  --text-primary:   #e8edf2;
+  --text-secondary: #8899a8;
+  --text-muted:     var(--b2s-color-neutral-400);
+
+  --border: var(--b2s-color-neutral-500);
+
+  --primary-default: var(--b2s-color-blue-500);
+  --primary-hover:   var(--b2s-color-blue-600);
+  --primary-accent:  var(--b2s-color-blue-400);
+  --primary-subtle:  rgba(0, 150, 199, 0.15);
+  --primary-surface: rgba(0, 150, 199, 0.1);
+
+  --success-default: var(--b2s-color-green-500);
+  --success-hover:   var(--b2s-color-green-600);
+  --success-subtle:  rgba(16, 185, 129, 0.15);
+  --success-surface: rgba(16, 185, 129, 0.1);
+
+  --danger-default:  var(--b2s-color-red-500);
+  --danger-hover:    var(--b2s-color-red-600);
+  --danger-subtle:   rgba(239, 68, 68, 0.15);
+  --danger-surface:  rgba(239, 68, 68, 0.1);
+
+  --warning-default: var(--b2s-color-amber-500);
+  --warning-hover:   var(--b2s-color-amber-600);
+  --warning-subtle:  rgba(245, 158, 11, 0.15);
+  --warning-surface: rgba(245, 158, 11, 0.1);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+
+  /* Icon colors — dark theme adjustments */
+  --b2s-icon-color-default: var(--b2s-color-neutral-300);
+  --b2s-icon-color-muted:   var(--b2s-color-neutral-500);
+}
+
+
+/* ============================================================
+   SEMANTIC TOKENS — B2S BRAND OVERRIDES
+   Apply on top of light or dark theme.
+   ============================================================ */
+[data-b2s="true"] {
+  --primary-default: var(--b2s-color-brand-red-500);
+  --primary-hover:   var(--b2s-color-brand-red-600);
+  --primary-accent:  var(--b2s-color-brand-red-400);
+  --primary-subtle:  var(--b2s-color-brand-red-100);
+  --primary-surface: var(--b2s-color-brand-red-50);
+
+  --success-default: var(--b2s-color-brand-gray-500);
+  --success-hover:   var(--b2s-color-brand-gray-600);
+  --success-subtle:  var(--b2s-color-brand-gray-100);
+  --success-surface: var(--b2s-color-brand-gray-50);
+}
+
+
+/* ============================================================
+   COMPOSITE TOKENS — ICONOGRAPHY (Lucide)
+   Base styles + size utilities + semantic color utilities.
+   ============================================================ */
+
+/* Base icon reset — apply to all Lucide SVGs or <Icon> wrappers */
+.b2s-icon,
+[data-b2s-icon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--b2s-icon-color-default);
+}
+
+.b2s-icon svg,
+[data-b2s-icon] svg {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: var(--b2s-icon-stroke-width);
+  stroke-linecap: var(--b2s-icon-stroke-linecap);
+  stroke-linejoin: var(--b2s-icon-stroke-linejoin);
+  fill: var(--b2s-icon-fill);
+}
+
+/* Size utilities */
+.b2s-icon--sm   { font-size: var(--b2s-icon-sm); }    /* 14px */
+.b2s-icon--md   { font-size: var(--b2s-icon-md); }    /* 18px */
+.b2s-icon--base { font-size: var(--b2s-icon-base); }  /* 20px */
+.b2s-icon--lg   { font-size: var(--b2s-icon-lg); }    /* 22px */
+.b2s-icon--xl   { font-size: var(--b2s-icon-xl); }    /* 24px */
+.b2s-icon--2xl  { font-size: var(--b2s-icon-2xl); }   /* 28px */
+
+/* Semantic color utilities */
+.b2s-icon--default   { color: var(--b2s-icon-color-default); }
+.b2s-icon--muted     { color: var(--b2s-icon-color-muted); }
+.b2s-icon--primary   { color: var(--b2s-icon-color-primary); }
+.b2s-icon--success   { color: var(--b2s-icon-color-success); }
+.b2s-icon--warning   { color: var(--b2s-icon-color-warning); }
+.b2s-icon--danger    { color: var(--b2s-icon-color-danger); }
+.b2s-icon--on-primary{ color: var(--b2s-icon-color-on-primary); }
+
+
+/* ============================================================
+   COMPOSITE TOKENS — TYPOGRAPHY
+   Ready-to-use text style shortcuts.
+   ============================================================ */
+:root {
+  /* Heading 1 */
+  --typo-h1-size: var(--b2s-font-size-4xl);
+  --typo-h1-weight: var(--b2s-font-weight-bold);
+  --typo-h1-line-height: var(--b2s-line-height-snug);
+
+  /* Heading 2 */
+  --typo-h2-size: var(--b2s-font-size-3xl);
+  --typo-h2-weight: var(--b2s-font-weight-bold);
+  --typo-h2-line-height: var(--b2s-line-height-snug);
+
+  /* Heading 3 — Section Title */
+  --typo-h3-size: var(--b2s-font-size-xl);
+  --typo-h3-weight: var(--b2s-font-weight-semibold);
+  --typo-h3-line-height: var(--b2s-line-height-snug);
+
+  /* Heading 4 — Card Title */
+  --typo-h4-size: var(--b2s-font-size-lg);
+  --typo-h4-weight: var(--b2s-font-weight-semibold);
+  --typo-h4-line-height: var(--b2s-line-height-snug);
+
+  /* Body */
+  --typo-body-size: var(--b2s-font-size-body);
+  --typo-body-weight: var(--b2s-font-weight-regular);
+  --typo-body-line-height: var(--b2s-line-height-normal);
+
+  /* Label */
+  --typo-label-size: var(--b2s-font-size-base);
+  --typo-label-weight: var(--b2s-font-weight-medium);
+  --typo-label-line-height: var(--b2s-line-height-normal);
+
+  /* Caption */
+  --typo-caption-size: var(--b2s-font-size-md);
+  --typo-caption-weight: var(--b2s-font-weight-regular);
+  --typo-caption-line-height: var(--b2s-line-height-normal);
+
+  /* Overline */
+  --typo-overline-size: var(--b2s-font-size-xs);
+  --typo-overline-weight: var(--b2s-font-weight-semibold);
+  --typo-overline-line-height: var(--b2s-line-height-normal);
+  --typo-overline-letter-spacing: var(--b2s-letter-spacing-wide);
+  --typo-overline-transform: uppercase;
+
+  /* Stat Value */
+  --typo-stat-size: var(--b2s-font-size-5xl);
+  --typo-stat-weight: var(--b2s-font-weight-bold);
+  --typo-stat-line-height: var(--b2s-line-height-tight);
+}

@@ -1,0 +1,114 @@
+# =============================================================================
+# .vercelignore — Bee2Waste
+# Only files strictly required to build and run the app in production are
+# uploaded to Vercel. Everything else is excluded below.
+#
+# Stack: Next.js 15 · React 19 · TypeScript · Tailwind CSS · Supabase
+# NOTE: design_rules/b2s-design-tokens/tokens.ts is imported by
+#       tailwind.config.ts at build time and MUST NOT be excluded.
+# =============================================================================
+
+
+# ── DEPENDENCIES ─────────────────────────────────────────────────────────────
+# Vercel installs dependencies itself from package.json; uploading node_modules
+# would be enormous and is always ignored by default — listed here explicitly.
+node_modules/
+
+
+# ── LOCAL BUILD ARTEFACTS ────────────────────────────────────────────────────
+# .next/ is rebuilt by Vercel on every deployment; uploading a local build
+# would conflict with the remote build and waste upload bandwidth.
+.next/
+
+
+# ── DESIGN SYSTEM — NON-BUILD FILES ─────────────────────────────────────────
+# tokens.ts is imported by tailwind.config.ts at build time → KEPT.
+# All other design-system files below are tooling/documentation only and are
+# not imported by any runtime or build code.
+
+# Interactive HTML component reference — designer tooling, not imported.
+design_rules/b2s-design-system.html
+
+# Figma SVG export — source design asset, not used at runtime.
+design_rules/b2s-design-system-figma.svg
+
+# Tokens in alternative formats (Figma plugin & W3C DTCG) — only tokens.ts
+# is consumed by the build; these JSON variants are for external tooling.
+design_rules/b2s-design-tokens/b2s-tokens.json
+design_rules/b2s-design-tokens/tokens.w3c.json
+
+# CSS custom-properties version of tokens — the app uses tokens.ts directly
+# via tailwind.config.ts; tokens.css is an alternative export for non-TS
+# consumers and is not imported anywhere in the project.
+design_rules/b2s-design-tokens/tokens.css
+
+# Design token README — documentation only.
+design_rules/b2s-design-tokens/README.md
+
+# Product icon SVGs — these are Figma/marketing assets, not referenced by
+# any import path in src/. Runtime icons come from lucide-react.
+design_rules/b2s-design-tokens/product-icons/
+
+# UI mockup screenshots — design references for developers, not imported.
+design_rules/example_login_page.png
+design_rules/example_dashboard_entrance_page.png
+design_rules/exampla_webapp_mainpage.png
+design_rules/example_entity_management.png
+design_rules/example_svg_map_page.png
+design_rules/example_list_page.png
+design_rules/example_map_page.png
+design_rules/example_configuration_page.png
+design_rules/example_dashboard_page.png
+
+
+# ── DOCUMENTATION ────────────────────────────────────────────────────────────
+# Internal specs and design documents — not consumed at build or runtime.
+claudedocs/
+
+# Product Requirements Document — upstream specification, not needed to run.
+Bee2Waste_PRD_MVP_Gestao_Parques.docx
+
+# Claude Code project instructions — development tooling only.
+CLAUDE.md
+
+
+# ── SUPABASE LOCAL CONFIG & SEED DATA ────────────────────────────────────────
+# Migrations are applied directly to the hosted Supabase project via the
+# Supabase dashboard or CLI; Vercel does not run migrations.
+supabase/migrations/
+
+# Seed script populates demo data in local/staging environments only.
+supabase/seed.sql
+
+# Local Supabase emulator configuration — irrelevant to Vercel deployments
+# which connect to the hosted Supabase cloud instance via env vars.
+supabase/config.toml
+
+# Supabase CLI temporary files (local dev state).
+supabase/.temp/
+
+
+# ── SCRIPTS ──────────────────────────────────────────────────────────────────
+# Standalone Node scripts for local database seeding — never executed by
+# Vercel during build or at runtime.
+scripts/
+
+
+# ── LOCAL ENVIRONMENT FILES ───────────────────────────────────────────────────
+# .env.local is a developer convenience template; actual secrets are injected
+# via Vercel Environment Variables in the project dashboard.
+.env.local.example
+
+
+# ── MCP / EDITOR TOOL ARTEFACTS ──────────────────────────────────────────────
+# Playwright MCP console logs and screenshots — local debugging output only.
+.playwright-mcp/
+
+# Claude Code local settings — editor configuration, not part of the app.
+.claude/
+
+
+# ── VERSION CONTROL METADATA ─────────────────────────────────────────────────
+# Git history and metadata serve no purpose at deploy time.
+.git/
+.gitignore

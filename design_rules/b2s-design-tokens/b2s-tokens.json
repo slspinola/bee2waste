@@ -1,0 +1,398 @@
+{
+  "$themes": [
+    {
+      "id": "light",
+      "name": "Light",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "semantic/light": "enabled"
+      }
+    },
+    {
+      "id": "dark",
+      "name": "Dark",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "semantic/dark": "enabled"
+      }
+    },
+    {
+      "id": "b2s",
+      "name": "B2S Brand",
+      "selectedTokenSets": {
+        "core": "enabled",
+        "semantic/light": "enabled",
+        "brand/b2s": "enabled"
+      }
+    }
+  ],
+  "$metadata": {
+    "tokenSetOrder": [
+      "core",
+      "semantic/light",
+      "semantic/dark",
+      "brand/b2s"
+    ]
+  },
+
+  "core": {
+    "color": {
+      "blue": {
+        "600": { "value": "#0077b6", "type": "color", "description": "Primary darkest" },
+        "500": { "value": "#0096c7", "type": "color", "description": "Primary default" },
+        "400": { "value": "#00b4d8", "type": "color", "description": "Primary hover/accent" },
+        "300": { "value": "#48cae4", "type": "color", "description": "Primary light" },
+        "200": { "value": "#90e0ef", "type": "color", "description": "Primary lighter" },
+        "100": { "value": "#caf0f8", "type": "color", "description": "Primary subtle" },
+        "50":  { "value": "#e8f7fa", "type": "color", "description": "Primary surface" }
+      },
+      "green": {
+        "600": { "value": "#059669", "type": "color", "description": "Success darkest" },
+        "500": { "value": "#10b981", "type": "color", "description": "Success default" },
+        "400": { "value": "#34d399", "type": "color", "description": "Success light" },
+        "100": { "value": "#d1fae5", "type": "color", "description": "Success subtle" },
+        "50":  { "value": "#ecfdf5", "type": "color", "description": "Success surface" }
+      },
+      "red": {
+        "600": { "value": "#dc2626", "type": "color", "description": "Danger darkest" },
+        "500": { "value": "#ef4444", "type": "color", "description": "Danger default" },
+        "400": { "value": "#f87171", "type": "color", "description": "Danger light" },
+        "100": { "value": "#fee2e2", "type": "color", "description": "Danger subtle" },
+        "50":  { "value": "#fef2f2", "type": "color", "description": "Danger surface" }
+      },
+      "amber": {
+        "600": { "value": "#d97706", "type": "color", "description": "Warning darkest" },
+        "500": { "value": "#f59e0b", "type": "color", "description": "Warning default" },
+        "400": { "value": "#fbbf24", "type": "color", "description": "Warning light" },
+        "100": { "value": "#fef3c7", "type": "color", "description": "Warning subtle" },
+        "50":  { "value": "#fffbeb", "type": "color", "description": "Warning surface" }
+      },
+      "neutral": {
+        "900": { "value": "#0f1419", "type": "color" },
+        "800": { "value": "#1a2028", "type": "color" },
+        "700": { "value": "#1a2b3c", "type": "color" },
+        "600": { "value": "#242d38", "type": "color" },
+        "500": { "value": "#2d3748", "type": "color" },
+        "400": { "value": "#5c6b7a", "type": "color" },
+        "300": { "value": "#8899a8", "type": "color" },
+        "200": { "value": "#9aa5b1", "type": "color" },
+        "100": { "value": "#e2e8f0", "type": "color" },
+        "75":  { "value": "#f0f4f7", "type": "color" },
+        "50":  { "value": "#f7f9fb", "type": "color" },
+        "0":   { "value": "#ffffff", "type": "color" }
+      }
+    },
+    "fontFamily": {
+      "base":  { "value": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", "type": "fontFamilies" },
+      "mono":  { "value": "'SF Mono', ui-monospace, monospace", "type": "fontFamilies" }
+    },
+    "fontSize": {
+      "xs":   { "value": "11", "type": "fontSizes", "description": "Overlines, nav section titles" },
+      "sm":   { "value": "12", "type": "fontSizes", "description": "Badges, small labels" },
+      "md":   { "value": "13", "type": "fontSizes", "description": "Subtitles, secondary info" },
+      "base": { "value": "14", "type": "fontSizes", "description": "Labels, captions, inputs" },
+      "body": { "value": "15", "type": "fontSizes", "description": "Body text" },
+      "lg":   { "value": "16", "type": "fontSizes", "description": "Card titles" },
+      "xl":   { "value": "18", "type": "fontSizes", "description": "Section titles" },
+      "2xl":  { "value": "20", "type": "fontSizes", "description": "Heading 4" },
+      "3xl":  { "value": "24", "type": "fontSizes", "description": "Heading 3, header title" },
+      "4xl":  { "value": "28", "type": "fontSizes", "description": "Doc title" },
+      "5xl":  { "value": "32", "type": "fontSizes", "description": "Stat values" }
+    },
+    "fontWeight": {
+      "regular":  { "value": "400", "type": "fontWeights" },
+      "medium":   { "value": "500", "type": "fontWeights" },
+      "semibold": { "value": "600", "type": "fontWeights" },
+      "bold":     { "value": "700", "type": "fontWeights" }
+    },
+    "lineHeight": {
+      "tight":  { "value": "1",   "type": "lineHeights", "description": "Stat values" },
+      "snug":   { "value": "1.3", "type": "lineHeights", "description": "Headings" },
+      "normal": { "value": "1.6", "type": "lineHeights", "description": "Body text" },
+      "relaxed":{ "value": "1.7", "type": "lineHeights", "description": "Doc text, readable paragraphs" }
+    },
+    "letterSpacing": {
+      "normal":   { "value": "0",      "type": "letterSpacing" },
+      "wide":     { "value": "0.5px",  "type": "letterSpacing", "description": "Overlines, nav sections" }
+    },
+    "spacing": {
+      "1":  { "value": "4",  "type": "spacing" },
+      "2":  { "value": "8",  "type": "spacing" },
+      "3":  { "value": "12", "type": "spacing" },
+      "4":  { "value": "16", "type": "spacing" },
+      "5":  { "value": "20", "type": "spacing" },
+      "6":  { "value": "24", "type": "spacing" },
+      "8":  { "value": "32", "type": "spacing" },
+      "10": { "value": "40", "type": "spacing" },
+      "12": { "value": "48", "type": "spacing" },
+      "16": { "value": "64", "type": "spacing" }
+    },
+    "borderRadius": {
+      "sm":   { "value": "6",    "type": "borderRadius" },
+      "md":   { "value": "10",   "type": "borderRadius" },
+      "lg":   { "value": "14",   "type": "borderRadius" },
+      "xl":   { "value": "20",   "type": "borderRadius" },
+      "full": { "value": "9999", "type": "borderRadius" }
+    },
+    "borderWidth": {
+      "default": { "value": "1",  "type": "borderWidth" },
+      "thick":   { "value": "2",  "type": "borderWidth" },
+      "accent":  { "value": "4",  "type": "borderWidth", "description": "Alert left border" }
+    },
+    "sizing": {
+      "icon-sm":     { "value": "14", "type": "sizing", "description": "Badge icons" },
+      "icon-md":     { "value": "18", "type": "sizing", "description": "Button icons" },
+      "icon-base":   { "value": "20", "type": "sizing", "description": "Nav item icons" },
+      "icon-lg":     { "value": "22", "type": "sizing", "description": "Section icons" },
+      "icon-xl":     { "value": "24", "type": "sizing", "description": "Icon grid, alert icons" },
+      "icon-2xl":    { "value": "28", "type": "sizing", "description": "Stat card icons" },
+      "sidebar":     { "value": "280", "type": "sizing" },
+      "header":      { "value": "70",  "type": "sizing" },
+      "content-max": { "value": "1400","type": "sizing" },
+      "stat-icon":   { "value": "56",  "type": "sizing" },
+      "alert-icon":  { "value": "44",  "type": "sizing" },
+      "section-icon":{ "value": "40",  "type": "sizing" },
+      "logo-icon":   { "value": "44",  "type": "sizing" },
+      "toggle-w":    { "value": "48",  "type": "sizing" },
+      "toggle-h":    { "value": "28",  "type": "sizing" },
+      "toggle-knob": { "value": "22",  "type": "sizing" },
+      "zone-badge-h":{ "value": "28",  "type": "sizing" },
+      "zone-badge-w":{ "value": "40",  "type": "sizing" }
+    },
+    "opacity": {
+      "dark-subtle-10": { "value": "0.1",  "type": "opacity", "description": "Dark theme surface tints" },
+      "dark-subtle-15": { "value": "0.15", "type": "opacity", "description": "Dark theme subtle fills" }
+    },
+    "duration": {
+      "fast":   { "value": "150ms", "type": "other", "description": "Buttons, inputs, nav hover" },
+      "normal": { "value": "200ms", "type": "other", "description": "Cards, toggles" },
+      "slow":   { "value": "300ms", "type": "other", "description": "Page transitions" }
+    },
+    "easing": {
+      "default": { "value": "ease", "type": "other" }
+    },
+    "iconography": {
+      "$description": "Lucide Icons — https://lucide.dev",
+      "library":       { "value": "lucide", "type": "other", "description": "Icon library: Lucide (lucide.dev)" },
+      "version":       { "value": ">=0.460", "type": "other", "description": "Minimum recommended version" },
+      "viewBox":       { "value": "0 0 24 24", "type": "other" },
+      "strokeWidth":   { "value": "2", "type": "other" },
+      "strokeLinecap": { "value": "round", "type": "other" },
+      "strokeLinejoin":{ "value": "round", "type": "other" },
+      "fill":          { "value": "none", "type": "other" },
+      "size": {
+        "sm":   { "value": "{core.sizing.icon-sm}", "type": "sizing", "description": "14px — Badge icons" },
+        "md":   { "value": "{core.sizing.icon-md}", "type": "sizing", "description": "18px — Button icons" },
+        "base": { "value": "{core.sizing.icon-base}", "type": "sizing", "description": "20px — Nav items" },
+        "lg":   { "value": "{core.sizing.icon-lg}", "type": "sizing", "description": "22px — Section headers" },
+        "xl":   { "value": "{core.sizing.icon-xl}", "type": "sizing", "description": "24px — Standalone icons, alerts" },
+        "2xl":  { "value": "{core.sizing.icon-2xl}", "type": "sizing", "description": "28px — Stat card icons" }
+      },
+      "color": {
+        "default":   { "value": "{core.color.neutral.400}", "type": "color", "description": "Default icon color (text-secondary)" },
+        "muted":     { "value": "{core.color.neutral.200}", "type": "color", "description": "Disabled/muted icons" },
+        "primary":   { "value": "{core.color.blue.600}", "type": "color", "description": "Primary action icons" },
+        "success":   { "value": "{core.color.green.600}", "type": "color", "description": "Success state icons" },
+        "warning":   { "value": "{core.color.amber.500}", "type": "color", "description": "Warning state icons" },
+        "danger":    { "value": "{core.color.red.600}", "type": "color", "description": "Danger/error state icons" },
+        "onPrimary": { "value": "#ffffff", "type": "color", "description": "Icons on primary/colored backgrounds" }
+      },
+      "mapping": {
+        "$description": "Recommended Lucide icon names per UI concept",
+        "navigation": {
+          "dashboard":    { "value": "layout-dashboard", "type": "other" },
+          "zones":        { "value": "map-pin", "type": "other" },
+          "valves":       { "value": "circle-dot", "type": "other" },
+          "schedules":    { "value": "calendar-clock", "type": "other" },
+          "history":      { "value": "history", "type": "other" },
+          "analytics":    { "value": "trending-up", "type": "other" },
+          "settings":     { "value": "settings", "type": "other" },
+          "alerts":       { "value": "bell-ring", "type": "other" },
+          "users":        { "value": "users", "type": "other" },
+          "help":         { "value": "circle-help", "type": "other" },
+          "menu":         { "value": "menu", "type": "other" },
+          "search":       { "value": "search", "type": "other" }
+        },
+        "domain": {
+          "water":        { "value": "droplets", "type": "other", "description": "Water/irrigation" },
+          "sensor":       { "value": "activity", "type": "other", "description": "Sensor readings" },
+          "temperature":  { "value": "thermometer-sun", "type": "other", "description": "Temperature" },
+          "humidity":     { "value": "cloud-drizzle", "type": "other", "description": "Humidity/rain" },
+          "pressure":     { "value": "gauge", "type": "other", "description": "Pressure gauge" },
+          "flow":         { "value": "waves", "type": "other", "description": "Flow rate" },
+          "pump":         { "value": "power", "type": "other", "description": "Pump on/off" },
+          "battery":      { "value": "battery-medium", "type": "other", "description": "Battery level" },
+          "signal":       { "value": "wifi", "type": "other", "description": "Connectivity" },
+          "waste":        { "value": "trash-2", "type": "other", "description": "Waste management (Bee2Waste)" },
+          "recycle":      { "value": "recycle", "type": "other", "description": "Recycling" },
+          "rfid":         { "value": "scan-line", "type": "other", "description": "RFID scanning" },
+          "truck":        { "value": "truck", "type": "other", "description": "Collection vehicle" },
+          "container":    { "value": "package", "type": "other", "description": "Waste container" }
+        },
+        "status": {
+          "success":      { "value": "circle-check", "type": "other" },
+          "warning":      { "value": "triangle-alert", "type": "other" },
+          "error":        { "value": "circle-x", "type": "other" },
+          "info":         { "value": "info", "type": "other" },
+          "online":       { "value": "circle", "type": "other", "description": "Filled via color" },
+          "offline":      { "value": "circle-off", "type": "other" },
+          "loading":      { "value": "loader-circle", "type": "other" }
+        },
+        "action": {
+          "add":          { "value": "plus", "type": "other" },
+          "edit":         { "value": "pencil", "type": "other" },
+          "delete":       { "value": "trash-2", "type": "other" },
+          "save":         { "value": "save", "type": "other" },
+          "close":        { "value": "x", "type": "other" },
+          "filter":       { "value": "sliders-horizontal", "type": "other" },
+          "export":       { "value": "download", "type": "other" },
+          "refresh":      { "value": "refresh-cw", "type": "other" },
+          "expand":       { "value": "maximize-2", "type": "other" },
+          "collapse":     { "value": "minimize-2", "type": "other" },
+          "chevronDown":  { "value": "chevron-down", "type": "other" },
+          "chevronRight": { "value": "chevron-right", "type": "other" },
+          "externalLink": { "value": "external-link", "type": "other" },
+          "copy":         { "value": "copy", "type": "other" },
+          "logout":       { "value": "log-out", "type": "other" }
+        },
+        "theme": {
+          "light":        { "value": "sun", "type": "other" },
+          "dark":         { "value": "moon", "type": "other" },
+          "system":       { "value": "monitor", "type": "other" }
+        },
+        "product": {
+          "$description": "B2S product icons — Lucide icon on #f93f26 bg, white stroke, radius 40px @200×200",
+          "bee2waste":    { "value": "recycle", "type": "other", "description": "Gestão de Recolha de Resíduos — file: bee2waste.svg" },
+          "bee2water":    { "value": "droplets", "type": "other", "description": "Gestão de Consumo de Água — file: bee2water.svg" },
+          "bee2crop":     { "value": "sprout", "type": "other", "description": "Rega e Fertilização Inteligente — file: bee2crop.svg" },
+          "bee2green":    { "value": "leafy-green", "type": "other", "description": "Gestão de Água e Espaços Verdes — file: bee2green.svg" },
+          "bee2lighting": { "value": "lightbulb", "type": "other", "description": "Gestão de Iluminação Pública — file: bee2lighting.svg" },
+          "bee2energy":   { "value": "zap", "type": "other", "description": "Gestão de Eficiência Energética — file: bee2energy.svg" }
+        }
+      },
+      "productIcon": {
+        "$description": "Specs for B2S product icon containers",
+        "background":     { "value": "{core.color.brand-red-500}", "type": "color", "description": "#f93f26 — B2S Warm Red" },
+        "foreground":     { "value": "#ffffff", "type": "color", "description": "White symbol" },
+        "viewBox":        { "value": "0 0 200 200", "type": "other" },
+        "borderRadius":   { "value": "40", "type": "borderRadius", "description": "20% of viewBox — radius-xl scaled" },
+        "iconScale":      { "value": "6.25", "type": "other", "description": "24px Lucide → 150px (×6.25), offset 25px" },
+        "iconOffset":     { "value": "25", "type": "sizing", "description": "translate(25,25) to center 150px in 200px" },
+        "strokeWidth":    { "value": "2", "type": "other", "description": "Lucide default, visually ≈12.5px at scale" }
+      }
+    }
+  },
+
+  "semantic/light": {
+    "bg": {
+      "body":      { "value": "{core.color.neutral.75}",  "type": "color" },
+      "sidebar":   { "value": "{core.color.neutral.0}",   "type": "color" },
+      "card":      { "value": "{core.color.neutral.0}",   "type": "color" },
+      "secondary": { "value": "{core.color.neutral.50}",  "type": "color" },
+      "hover":     { "value": "{core.color.neutral.75}",  "type": "color" }
+    },
+    "text": {
+      "primary":   { "value": "{core.color.neutral.700}", "type": "color" },
+      "secondary": { "value": "{core.color.neutral.400}", "type": "color" },
+      "muted":     { "value": "{core.color.neutral.200}", "type": "color" }
+    },
+    "border": {
+      "default":   { "value": "{core.color.neutral.100}", "type": "color" }
+    },
+    "primary": {
+      "default":   { "value": "{core.color.blue.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.blue.600}",   "type": "color" },
+      "accent":    { "value": "{core.color.blue.400}",   "type": "color" },
+      "subtle":    { "value": "{core.color.blue.100}",   "type": "color" },
+      "surface":   { "value": "{core.color.blue.50}",    "type": "color" }
+    },
+    "success": {
+      "default":   { "value": "{core.color.green.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.green.600}",   "type": "color" },
+      "subtle":    { "value": "{core.color.green.100}",   "type": "color" },
+      "surface":   { "value": "{core.color.green.50}",    "type": "color" }
+    },
+    "danger": {
+      "default":   { "value": "{core.color.red.500}",     "type": "color" },
+      "hover":     { "value": "{core.color.red.600}",     "type": "color" },
+      "subtle":    { "value": "{core.color.red.100}",     "type": "color" },
+      "surface":   { "value": "{core.color.red.50}",      "type": "color" }
+    },
+    "warning": {
+      "default":   { "value": "{core.color.amber.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.amber.600}",   "type": "color" },
+      "subtle":    { "value": "{core.color.amber.100}",   "type": "color" },
+      "surface":   { "value": "{core.color.amber.50}",    "type": "color" }
+    },
+    "shadow": {
+      "sm": { "value": "0 1px 2px rgba(0,0,0,0.05)",  "type": "boxShadow" },
+      "md": { "value": "0 4px 12px rgba(0,0,0,0.08)", "type": "boxShadow" },
+      "lg": { "value": "0 8px 24px rgba(0,0,0,0.12)", "type": "boxShadow" }
+    }
+  },
+
+  "semantic/dark": {
+    "bg": {
+      "body":      { "value": "{core.color.neutral.900}", "type": "color" },
+      "sidebar":   { "value": "{core.color.neutral.800}", "type": "color" },
+      "card":      { "value": "{core.color.neutral.800}", "type": "color" },
+      "secondary": { "value": "{core.color.neutral.600}", "type": "color" },
+      "hover":     { "value": "{core.color.neutral.500}", "type": "color" }
+    },
+    "text": {
+      "primary":   { "value": "#e8edf2", "type": "color" },
+      "secondary": { "value": "#8899a8", "type": "color" },
+      "muted":     { "value": "{core.color.neutral.400}", "type": "color" }
+    },
+    "border": {
+      "default":   { "value": "{core.color.neutral.500}", "type": "color" }
+    },
+    "primary": {
+      "default":   { "value": "{core.color.blue.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.blue.600}",   "type": "color" },
+      "accent":    { "value": "{core.color.blue.400}",   "type": "color" },
+      "subtle":    { "value": "rgba(0, 150, 199, 0.15)",  "type": "color" },
+      "surface":   { "value": "rgba(0, 150, 199, 0.1)",   "type": "color" }
+    },
+    "success": {
+      "default":   { "value": "{core.color.green.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.green.600}",   "type": "color" },
+      "subtle":    { "value": "rgba(16, 185, 129, 0.15)", "type": "color" },
+      "surface":   { "value": "rgba(16, 185, 129, 0.1)",  "type": "color" }
+    },
+    "danger": {
+      "default":   { "value": "{core.color.red.500}",     "type": "color" },
+      "hover":     { "value": "{core.color.red.600}",     "type": "color" },
+      "subtle":    { "value": "rgba(239, 68, 68, 0.15)",  "type": "color" },
+      "surface":   { "value": "rgba(239, 68, 68, 0.1)",   "type": "color" }
+    },
+    "warning": {
+      "default":   { "value": "{core.color.amber.500}",   "type": "color" },
+      "hover":     { "value": "{core.color.amber.600}",   "type": "color" },
+      "subtle":    { "value": "rgba(245, 158, 11, 0.15)", "type": "color" },
+      "surface":   { "value": "rgba(245, 158, 11, 0.1)",  "type": "color" }
+    },
+    "shadow": {
+      "sm": { "value": "0 1px 2px rgba(0,0,0,0.2)",  "type": "boxShadow" },
+      "md": { "value": "0 4px 12px rgba(0,0,0,0.3)", "type": "boxShadow" },
+      "lg": { "value": "0 8px 24px rgba(0,0,0,0.4)", "type": "boxShadow" }
+    }
+  },
+
+  "brand/b2s": {
+    "primary": {
+      "default": { "value": "#f93f26", "type": "color", "description": "B2S Warm Red" },
+      "hover":   { "value": "#c41e1e", "type": "color", "description": "B2S Red dark" },
+      "accent":  { "value": "#ff5c45", "type": "color", "description": "B2S Red light" },
+      "subtle":  { "value": "#ffe5e2", "type": "color", "description": "B2S Red 100" },
+      "surface": { "value": "#fff5f4", "type": "color", "description": "B2S Red 50" }
+    },
+    "success": {
+      "default": { "value": "#5a6268", "type": "color", "description": "B2S Petro Gray" },
+      "hover":   { "value": "#3d4448", "type": "color", "description": "B2S Petro dark" },
+      "accent":  { "value": "#6c757d", "type": "color", "description": "B2S Petro light" },
+      "subtle":  { "value": "#e2e5e7", "type": "color", "description": "B2S Petro 100" },
+      "surface": { "value": "#f4f5f6", "type": "color", "description": "B2S Petro 50" }
+    }
+  }
+}
