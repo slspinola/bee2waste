@@ -39,14 +39,15 @@ type Pedido = {
   created_at: string;
   completed_at: string | null;
   clients: { name: string; nif: string | null } | null;
-  rotas: {
-    id: string;
-    numero_rota: string;
-    data_rota: string;
-    motoristas: { nome: string } | null;
-    viaturas: { matricula: string } | null;
-  } | null;
 };
+
+type RotaInfo = {
+  id: string;
+  numero_rota: string;
+  data_rota: string;
+  motoristas: { nome: string } | null;
+  viaturas: { matricula: string } | null;
+} | null;
 
 const STATUS_CONFIG: Record<OrderStatus, { label: string; className: string }> =
   {
@@ -105,11 +106,14 @@ export default function PedidoDetailPage({
 }) {
   const { id } = use(params);
   const [pedido, setPedido] = useState<Pedido | null>(null);
+  const [rota, setRota] = useState<RotaInfo>(null);
   const [loading, setLoading] = useState(true);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
     const supabase = createClient();
+
+    // Main pedido query — no rotas join (no rota_id FK on this table)
     supabase
       .from("pedidos_recolha")
       .select(
@@ -118,8 +122,7 @@ export default function PedidoDetailPage({
         contacto_local, instrucoes_especiais, quantidade_estimada_kg, quantidade_real_kg,
         ler_code, descricao_residuo, data_agendada, sla_deadline, failure_reason, cancellation_reason,
         notas, created_at, completed_at,
-        clients:client_id(name, nif),
-        rotas:rota_id(id, numero_rota, data_rota, motoristas:motorista_id(nome), viaturas:viatura_id(matricula))
+        clients:client_id(name, nif)
       `
       )
       .eq("id", id)
@@ -127,6 +130,21 @@ export default function PedidoDetailPage({
       .then(({ data }) => {
         setPedido(data as unknown as Pedido);
         setLoading(false);
+      });
+
+    // Separate query to get linked rota via rota_paragens junction
+    supabase
+      .from("rota_paragens")
+      .select(
+        `rotas(id, numero_rota, data_rota, motoristas:motorista_id(nome), viaturas:viatura_id(matricula))`
+      )
+      .eq("pedido_id", id)
+      .limit(1)
+      .single()
+      .then(({ data }) => {
+        if (data?.rotas) {
+          setRota(data.rotas as unknown as RotaInfo);
+        }
       });
   }, [id]);
 
@@ -324,28 +342,28 @@ export default function PedidoDetailPage({
         </div>
 
         {/* Route assignment */}
-        {pedido.rotas && (
+        {rota && (
           <div className="rounded-lg border border-border bg-card p-4">
             <p className="mb-2 text-sm font-medium text-muted-foreground">
               Rota Atribuída
             </p>
             <Link
-              href={`/logistica/rotas/${pedido.rotas.id}`}
+              href={`/logistica/rotas/${rota.id}`}
               className="font-mono text-sm font-medium text-primary hover:underline"
             >
-              {pedido.rotas.numero_rota}
+              {rota.numero_rota}
             </Link>
             <p className="text-xs text-muted-foreground">
-              {new Date(pedido.rotas.data_rota).toLocaleDateString("pt-PT")}
+              {new Date(rota.data_rota).toLocaleDateString("pt-PT")}
             </p>
-            {pedido.rotas.motoristas && (
+            {rota.motoristas && (
               <p className="text-xs text-muted-foreground">
-                {pedido.rotas.motoristas.nome}
+                {rota.motoristas.nome}
               </p>
             )}
-            {pedido.rotas.viaturas && (
+            {rota.viaturas && (
               <p className="font-mono text-xs text-muted-foreground">
-                {pedido.rotas.viaturas.matricula}
+                {rota.viaturas.matricula}
               </p>
             )}
           </div>

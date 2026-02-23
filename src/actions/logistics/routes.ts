@@ -7,16 +7,16 @@ const routeSchema = z.object({
   park_id: z.string().uuid(),
   viatura_id: z.string().uuid().optional(),
   motorista_id: z.string().uuid().optional(),
-  data_execucao: z.string(),
-  hora_inicio_prevista: z.string().optional(),
+  data_rota: z.string(),
+  hora_partida: z.string().optional(),
   notas: z.string().optional(),
 });
 
 const paragensSchema = z.object({
   rota_id: z.string().uuid(),
-  pedido_recolha_id: z.string().uuid(),
+  pedido_id: z.string().uuid(),
   ordem: z.number().int().positive(),
-  hora_prevista_chegada: z.string().optional(),
+  hora_chegada_estimada: z.string().optional(),
 });
 
 export async function createRota(data: z.infer<typeof routeSchema>) {
@@ -70,7 +70,7 @@ export async function addParagem(data: z.infer<typeof paragensSchema>) {
   await supabase
     .from("pedidos_recolha")
     .update({ status: "planned", updated_at: new Date().toISOString() })
-    .eq("id", validated.pedido_recolha_id);
+    .eq("id", validated.pedido_id);
 
   revalidatePath("/logistica/planeamento");
   revalidatePath("/logistica/pedidos");
@@ -87,7 +87,7 @@ export async function removeParagem(paragemaId: string) {
   // Fetch the paragem to know the pedido_id before deleting
   const { data: paragem } = await supabase
     .from("rota_paragens")
-    .select("pedido_recolha_id")
+    .select("pedido_id")
     .eq("id", paragemaId)
     .single();
 
@@ -99,11 +99,11 @@ export async function removeParagem(paragemaId: string) {
   if (error) throw new Error(error.message);
 
   // Revert order to pending
-  if (paragem?.pedido_recolha_id) {
+  if (paragem?.pedido_id) {
     await supabase
       .from("pedidos_recolha")
       .update({ status: "pending", updated_at: new Date().toISOString() })
-      .eq("id", paragem.pedido_recolha_id);
+      .eq("id", paragem.pedido_id);
   }
 
   revalidatePath("/logistica/planeamento");
@@ -158,8 +158,8 @@ export async function updateRotaAssignment(
   data: {
     viatura_id?: string;
     motorista_id?: string;
-    data_execucao?: string;
-    hora_inicio_prevista?: string;
+    data_rota?: string;
+    hora_partida?: string;
   }
 ) {
   const supabase = await createClient();
@@ -205,7 +205,7 @@ export async function registarChegada(paragemaId: string) {
     .from("rota_paragens")
     .update({
       status: "at_client",
-      hora_real_chegada: new Date().toISOString(),
+      hora_chegada_real: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
     .eq("id", paragemaId);
@@ -213,21 +213,21 @@ export async function registarChegada(paragemaId: string) {
   // Update linked order status
   const { data: paragem } = await supabase
     .from("rota_paragens")
-    .select("pedido_recolha_id")
+    .select("pedido_id")
     .eq("id", paragemaId)
     .single();
-  if (paragem?.pedido_recolha_id) {
+  if (paragem?.pedido_id) {
     await supabase
       .from("pedidos_recolha")
       .update({ status: "at_client", updated_at: new Date().toISOString() })
-      .eq("id", paragem.pedido_recolha_id);
+      .eq("id", paragem.pedido_id);
   }
   return { success: true };
 }
 
 export async function concluirParagem(
   paragemaId: string,
-  data: { peso_real_kg: number; notas?: string }
+  data: { quantidade_real_kg: number; notas?: string }
 ) {
   const supabase = await createClient();
   const {
@@ -239,8 +239,8 @@ export async function concluirParagem(
     .from("rota_paragens")
     .update({
       status: "completed",
-      hora_real_saida: now,
-      peso_real_kg: data.peso_real_kg,
+      hora_saida_real: now,
+      quantidade_real_kg: data.quantidade_real_kg,
       notas: data.notas ?? null,
       updated_at: now,
     })
@@ -249,14 +249,14 @@ export async function concluirParagem(
   // Fetch paragem to get pedido id
   const { data: paragem } = await supabase
     .from("rota_paragens")
-    .select("pedido_recolha_id")
+    .select("pedido_id")
     .eq("id", paragemaId)
     .single();
-  if (paragem?.pedido_recolha_id) {
+  if (paragem?.pedido_id) {
     await supabase
       .from("pedidos_recolha")
       .update({ status: "completed", completed_at: now, updated_at: now })
-      .eq("id", paragem.pedido_recolha_id);
+      .eq("id", paragem.pedido_id);
   }
   return { success: true };
 }
@@ -275,14 +275,14 @@ export async function falharParagem(paragemaId: string, motivo: string) {
   if (error) throw new Error(error.message);
   const { data: paragem } = await supabase
     .from("rota_paragens")
-    .select("pedido_recolha_id")
+    .select("pedido_id")
     .eq("id", paragemaId)
     .single();
-  if (paragem?.pedido_recolha_id) {
+  if (paragem?.pedido_id) {
     await supabase
       .from("pedidos_recolha")
       .update({ status: "failed", failure_reason: motivo, updated_at: now })
-      .eq("id", paragem.pedido_recolha_id);
+      .eq("id", paragem.pedido_id);
   }
   return { success: true };
 }
@@ -296,7 +296,7 @@ export async function concludeRota(rotaId: string) {
   const now = new Date().toISOString();
   const { error } = await supabase
     .from("rotas")
-    .update({ status: "completed", hora_fim_prevista: now, updated_at: now })
+    .update({ status: "completed", hora_chegada: now, updated_at: now })
     .eq("id", rotaId);
   if (error) throw new Error(error.message);
   revalidatePath(`/logistica/rotas/${rotaId}`);

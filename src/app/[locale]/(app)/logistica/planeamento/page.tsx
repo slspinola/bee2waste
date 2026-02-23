@@ -58,7 +58,7 @@ type Pedido = {
 type Paragem = {
   id: string;
   ordem: number;
-  pedido_recolha_id: string;
+  pedido_id: string;
   pedido: Pedido;
 };
 
@@ -68,8 +68,8 @@ type Rota = {
   status: string;
   viatura_id: string | null;
   motorista_id: string | null;
-  data_execucao: string;
-  hora_inicio_prevista: string | null;
+  data_rota: string;
+  hora_partida: string | null;
   paragens: Paragem[];
 };
 
@@ -113,7 +113,7 @@ export default function PlaneamentoPage() {
       id: string;
       numero_rota: string;
       status: string;
-      data_execucao: string;
+      data_rota: string;
     }[]
   >([]);
 
@@ -138,7 +138,7 @@ export default function PlaneamentoPage() {
     // Load draft/confirmed rotas for selection
     supabase
       .from("rotas")
-      .select("id, numero_rota, status, data_execucao")
+      .select("id, numero_rota, status, data_rota")
       .eq("park_id", currentParkId)
       .in("status", ["draft", "confirmed"])
       .order("data_execucao", { ascending: false })
@@ -184,9 +184,9 @@ export default function PlaneamentoPage() {
       .from("rotas")
       .select(
         `
-        id, numero_rota, status, viatura_id, motorista_id, data_execucao, hora_inicio_prevista,
+        id, numero_rota, status, viatura_id, motorista_id, data_rota, hora_partida,
         rota_paragens(
-          id, ordem, pedido_recolha_id, status,
+          id, ordem, pedido_id, status,
           pedidos_recolha(id, numero_pedido, morada_recolha, cidade_recolha, prioridade, quantidade_estimada_kg, collection_lat, collection_lng, sla_deadline, clients(name))
         )
       `
@@ -200,7 +200,7 @@ export default function PlaneamentoPage() {
             data.rota_paragens as unknown as Array<{
               id: string;
               ordem: number;
-              pedido_recolha_id: string;
+              pedido_id: string;
               status: string;
               pedidos_recolha: Pedido;
             }>
@@ -210,7 +210,7 @@ export default function PlaneamentoPage() {
           .map((p) => ({
             id: p.id,
             ordem: p.ordem,
-            pedido_recolha_id: p.pedido_recolha_id,
+            pedido_id: p.pedido_id,
             pedido: p.pedidos_recolha,
           }));
 
@@ -220,8 +220,8 @@ export default function PlaneamentoPage() {
           status: data.status,
           viatura_id: data.viatura_id,
           motorista_id: data.motorista_id,
-          data_execucao: data.data_execucao,
-          hora_inicio_prevista: data.hora_inicio_prevista,
+          data_rota: data.data_rota,
+          hora_partida: data.hora_partida,
           paragens,
         });
       });
@@ -262,7 +262,7 @@ export default function PlaneamentoPage() {
       try {
         const r = await createRota({
           park_id: currentParkId,
-          data_execucao: newRotaDate,
+          data_rota: newRotaDate,
         });
         setSelectedRotaId(r.id);
         setShowNewRotaForm(false);
@@ -282,7 +282,7 @@ export default function PlaneamentoPage() {
       try {
         await addParagem({
           rota_id: rota.id,
-          pedido_recolha_id: pedido.id,
+          pedido_id: pedido.id,
           ordem: rota.paragens.length + 1,
         });
         loadRota(rota.id);
@@ -323,7 +323,7 @@ export default function PlaneamentoPage() {
   };
 
   const handleAssign = (
-    field: "viatura_id" | "motorista_id" | "hora_inicio_prevista",
+    field: "viatura_id" | "motorista_id" | "hora_partida",
     value: string
   ) => {
     if (!rota) return;
@@ -376,7 +376,7 @@ export default function PlaneamentoPage() {
             <option value="">— Selecionar rota —</option>
             {allRotas.map((r) => (
               <option key={r.id} value={r.id}>
-                {r.numero_rota} · {r.data_execucao} ·{" "}
+                {r.numero_rota} · {r.data_rota} ·{" "}
                 {r.status === "draft" ? "Rascunho" : "Confirmada"}
               </option>
             ))}
@@ -528,7 +528,7 @@ export default function PlaneamentoPage() {
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {rota.data_execucao}
+                  {rota.data_rota}
                 </p>
                 {totalKg > 0 && (
                   <p className="text-xs text-muted-foreground">
@@ -585,9 +585,9 @@ export default function PlaneamentoPage() {
                   <input
                     type="time"
                     className="w-full h-8 rounded border border-input bg-background px-2 text-sm"
-                    value={rota.hora_inicio_prevista ?? ""}
+                    value={rota.hora_partida ?? ""}
                     onChange={(e) =>
-                      handleAssign("hora_inicio_prevista", e.target.value)
+                      handleAssign("hora_partida", e.target.value)
                     }
                     disabled={rota.status !== "draft"}
                   />

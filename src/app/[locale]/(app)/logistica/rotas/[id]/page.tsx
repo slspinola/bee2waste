@@ -27,10 +27,10 @@ type Paragem = {
   id: string;
   ordem: number;
   status: "pending" | "at_client" | "completed" | "failed" | "skipped";
-  hora_prevista_chegada: string | null;
-  hora_real_chegada: string | null;
-  hora_real_saida: string | null;
-  peso_real_kg: number | null;
+  hora_chegada_estimada: string | null;
+  hora_chegada_real: string | null;
+  hora_saida_real: string | null;
+  quantidade_real_kg: number | null;
   notas: string | null;
   pedidos_recolha: {
     id: string;
@@ -46,8 +46,8 @@ type Rota = {
   id: string;
   numero_rota: string;
   status: string;
-  data_execucao: string;
-  hora_inicio_prevista: string | null;
+  data_rota: string;
+  hora_partida: string | null;
   viaturas: { matricula: string } | null;
   motoristas: { nome: string } | null;
   rota_paragens: Paragem[];
@@ -81,11 +81,11 @@ export default function RotaDetailPage({
       .from("rotas")
       .select(
         `
-        id, numero_rota, status, data_execucao, hora_inicio_prevista,
+        id, numero_rota, status, data_rota, hora_partida,
         viaturas(matricula),
         motoristas(nome),
         rota_paragens(
-          id, ordem, status, hora_prevista_chegada, hora_real_chegada, hora_real_saida, peso_real_kg, notas,
+          id, ordem, status, hora_chegada_estimada, hora_chegada_real, hora_saida_real, quantidade_real_kg, notas,
           pedidos_recolha(id, numero_pedido, morada_recolha, cidade_recolha, quantidade_estimada_kg, clients(name))
         )
       `
@@ -180,9 +180,9 @@ export default function RotaDetailPage({
             </span>
             <span className="flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" />
-              {rota.data_execucao}
-              {rota.hora_inicio_prevista
-                ? ` às ${rota.hora_inicio_prevista}`
+              {rota.data_rota}
+              {rota.hora_partida
+                ? ` às ${rota.hora_partida}`
                 : ""}
             </span>
           </div>
@@ -269,29 +269,29 @@ export default function RotaDetailPage({
                   </div>
 
                   {/* Timing info */}
-                  {(p.hora_real_chegada || p.hora_real_saida) && (
+                  {(p.hora_chegada_real || p.hora_saida_real) && (
                     <div className="flex gap-4 mt-2 text-xs text-muted-foreground flex-wrap">
-                      {p.hora_real_chegada && (
+                      {p.hora_chegada_real && (
                         <span>
                           Chegada:{" "}
-                          {new Date(p.hora_real_chegada).toLocaleTimeString(
+                          {new Date(p.hora_chegada_real).toLocaleTimeString(
                             "pt-PT",
                             { hour: "2-digit", minute: "2-digit" }
                           )}
                         </span>
                       )}
-                      {p.hora_real_saida && (
+                      {p.hora_saida_real && (
                         <span>
                           Saída:{" "}
-                          {new Date(p.hora_real_saida).toLocaleTimeString(
+                          {new Date(p.hora_saida_real).toLocaleTimeString(
                             "pt-PT",
                             { hour: "2-digit", minute: "2-digit" }
                           )}
                         </span>
                       )}
-                      {p.peso_real_kg != null && (
+                      {p.quantidade_real_kg != null && (
                         <span>
-                          Real: {p.peso_real_kg.toLocaleString("pt-PT")} kg
+                          Real: {p.quantidade_real_kg.toLocaleString("pt-PT")} kg
                         </span>
                       )}
                     </div>
@@ -367,7 +367,7 @@ export default function RotaDetailPage({
                             onClick={() =>
                               action(() =>
                                 concluirParagem(p.id, {
-                                  peso_real_kg: parseFloat(
+                                  quantidade_real_kg: parseFloat(
                                     weightInputs[p.id] ?? "0"
                                   ),
                                 })
