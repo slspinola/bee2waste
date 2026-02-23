@@ -3,6 +3,7 @@ import { useState, useEffect, useTransition } from "react";
 import dynamic from "next/dynamic";
 import { createClient } from "@/lib/supabase/client";
 import { useCurrentPark } from "@/hooks/use-current-park";
+import { Link } from "@/i18n/navigation";
 import {
   createRota,
   addParagem,
@@ -125,11 +126,10 @@ export default function PlaneamentoPage() {
     supabase
       .from("pedidos_recolha")
       .select(
-        "id, numero_pedido, morada_recolha, cidade_recolha, prioridade, status, quantidade_estimada_kg, collection_lat, collection_lng, sla_deadline, clients(name)"
+        "id, numero_pedido, morada_recolha, cidade_recolha, prioridade, status, quantidade_estimada_kg, collection_lat, collection_lng, sla_deadline, clients:client_id(name)"
       )
       .eq("park_id", currentParkId)
       .in("status", ["pending"])
-      .order("prioridade", { ascending: true })
       .order("created_at", { ascending: true })
       .then(({ data }) => {
         if (data) setPedidos(data as unknown as Pedido[]);
@@ -140,9 +140,9 @@ export default function PlaneamentoPage() {
       .from("rotas")
       .select("id, numero_rota, status, data_rota")
       .eq("park_id", currentParkId)
-      .in("status", ["draft", "confirmed"])
-      .order("data_execucao", { ascending: false })
-      .limit(20)
+      .in("status", ["draft", "confirmed", "on_execution", "completed"])
+      .order("data_rota", { ascending: false })
+      .limit(50)
       .then(({ data }) => {
         if (data) {
           setAllRotas(data);
@@ -377,7 +377,13 @@ export default function PlaneamentoPage() {
             {allRotas.map((r) => (
               <option key={r.id} value={r.id}>
                 {r.numero_rota} · {r.data_rota} ·{" "}
-                {r.status === "draft" ? "Rascunho" : "Confirmada"}
+                {r.status === "draft"
+                  ? "Rascunho"
+                  : r.status === "confirmed"
+                  ? "Confirmada"
+                  : r.status === "on_execution"
+                  ? "Em Execução"
+                  : "Concluída"}
               </option>
             ))}
           </select>
@@ -513,18 +519,31 @@ export default function PlaneamentoPage() {
               {/* Rota header */}
               <div className="px-4 py-3 border-b border-border sticky top-0 bg-card z-10">
                 <div className="flex items-center justify-between mb-1">
-                  <h2 className="text-sm font-semibold text-foreground">
+                  <Link
+                    href={`/logistica/rotas/${rota.id}`}
+                    className="text-sm font-semibold text-foreground hover:text-primary hover:underline"
+                  >
                     {rota.numero_rota}
-                  </h2>
+                  </Link>
                   <span
                     className={cn(
                       "text-xs px-2 py-0.5 rounded-full font-medium",
                       rota.status === "draft"
                         ? "bg-muted text-muted-foreground"
+                        : rota.status === "confirmed"
+                        ? "bg-amber-100 text-amber-700"
+                        : rota.status === "on_execution"
+                        ? "bg-blue-100 text-blue-700"
                         : "bg-green-100 text-green-700"
                     )}
                   >
-                    {rota.status === "draft" ? "Rascunho" : "Confirmada"}
+                    {rota.status === "draft"
+                      ? "Rascunho"
+                      : rota.status === "confirmed"
+                      ? "Confirmada"
+                      : rota.status === "on_execution"
+                      ? "Em Execução"
+                      : "Concluída"}
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground">
@@ -598,7 +617,9 @@ export default function PlaneamentoPage() {
               <div className="flex-1 overflow-y-auto">
                 {rota.paragens.length === 0 ? (
                   <div className="p-6 text-center text-muted-foreground text-sm">
-                    Clique num pedido à esquerda para adicionar à rota
+                    {rota.status === "draft"
+                      ? "Clique num pedido à esquerda para adicionar à rota"
+                      : "Esta rota não tem paragens"}
                   </div>
                 ) : (
                   <ol className="p-2 space-y-2">
