@@ -120,9 +120,9 @@ export default function LogisticaDashboardPage() {
       // Completed stops today for kg collected
       supabase
         .from("rota_paragens")
-        .select("peso_real_kg, rotas!inner(park_id, data_execucao, status)")
+        .select("quantidade_real_kg, rotas!inner(park_id, data_rota, status)")
         .eq("rotas.park_id", currentParkId)
-        .eq("rotas.data_execucao", today)
+        .eq("rotas.data_rota", today)
         .eq("status", "completed"),
     ]).then(([ordersRes, viaturasRes, completedStopsRes]) => {
       const orders = ordersRes.data ?? [];
@@ -150,8 +150,8 @@ export default function LogisticaDashboardPage() {
           .filter((o) => o.status === "planned")
           .reduce((s, o) => s + (o.quantidade_estimada_kg ?? 0), 0),
         kg_recolhidos_hoje: completedStops.reduce(
-          (s: number, p: { peso_real_kg: number | null }) =>
-            s + (p.peso_real_kg ?? 0),
+          (s: number, p: { quantidade_real_kg: number | null }) =>
+            s + (p.quantidade_real_kg ?? 0),
           0
         ),
         viaturas_disponiveis: viaturas.filter((v) => v.status === "available")
