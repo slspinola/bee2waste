@@ -34,7 +34,7 @@ export default function SettingsLayout({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+      <h1 className="text-xl font-semibold text-foreground">{t("title")}</h1>
 
       <div className="flex gap-6">
         {/* Settings navigation sidebar */}

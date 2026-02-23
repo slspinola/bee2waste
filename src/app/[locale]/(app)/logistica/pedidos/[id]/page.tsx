@@ -197,7 +197,7 @@ export default function PedidoDetailPage({
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-xl font-semibold text-foreground">
               {pedido.numero_pedido}
             </h1>
             <div className="mt-1 flex items-center gap-2">

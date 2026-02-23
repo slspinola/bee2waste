@@ -238,7 +238,7 @@ export default function ViaturaDetailPage({
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold font-mono text-foreground">
+              <h1 className="text-xl font-semibold font-mono text-foreground">
                 {viatura.matricula}
               </h1>
               <span

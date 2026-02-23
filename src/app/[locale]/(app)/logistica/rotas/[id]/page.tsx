@@ -132,7 +132,7 @@ export default function RotaDetailPage({
     );
 
   return (
-    <div className="space-y-6 p-6 max-w-3xl">
+    <div className="space-y-6 max-w-3xl">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link
@@ -143,7 +143,7 @@ export default function RotaDetailPage({
         </Link>
         <div className="flex-1">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-foreground">
+            <h1 className="text-xl font-semibold text-foreground">
               {rota.numero_rota}
             </h1>
             <span

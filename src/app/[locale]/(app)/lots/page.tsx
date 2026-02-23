@@ -126,7 +126,7 @@ export default function LotsPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-lg border border-border">
+      <div className="rounded-lg border border-border bg-card overflow-hidden">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border bg-muted/50">

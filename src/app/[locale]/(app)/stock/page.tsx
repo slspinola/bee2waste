@@ -141,9 +141,11 @@ export default function StockPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-xl font-semibold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("overview")}</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold">{t("title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("overview")}</p>
+        </div>
       </div>
 
       {/* Stats */}
@@ -280,7 +282,7 @@ export default function StockPage() {
       )}
 
       {activeTab === "movements" && (
-        <div className="rounded-lg border border-border">
+        <div className="rounded-lg border border-border bg-card overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="border-b border-border bg-muted/50">

@@ -81,11 +81,9 @@ export default function ClassificationPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">{t("title")}</h1>
-          <p className="text-sm text-muted-foreground">Fichas de classificação, transferências e não-conformidades</p>
-        </div>
+      <div>
+        <h1 className="text-xl font-semibold">{t("title")}</h1>
+        <p className="text-sm text-muted-foreground">Fichas de classificação, transferências e não-conformidades</p>
       </div>
 
       {/* Stats */}
@@ -143,7 +141,7 @@ export default function ClassificationPage() {
               <Plus className="h-4 w-4" /> {t("newSheet")}
             </Link>
           </div>
-          <div className="rounded-lg border border-border">
+          <div className="rounded-lg border border-border bg-card overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-muted/50">
@@ -200,7 +198,7 @@ export default function ClassificationPage() {
               <Plus className="h-4 w-4" /> {t("newTransfer")}
             </Link>
           </div>
-          <div className="rounded-lg border border-border">
+          <div className="rounded-lg border border-border bg-card overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-muted/50">
@@ -247,7 +245,7 @@ export default function ClassificationPage() {
               <Plus className="h-4 w-4" /> Nova NC
             </Link>
           </div>
-          <div className="rounded-lg border border-border">
+          <div className="rounded-lg border border-border bg-card overflow-hidden">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border bg-muted/50">

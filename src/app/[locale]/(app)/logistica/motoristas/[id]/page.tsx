@@ -200,7 +200,7 @@ export default function MotoristaDetailPage({
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-foreground">{motorista.nome}</h1>
+              <h1 className="text-xl font-semibold text-foreground">{motorista.nome}</h1>
               <span
                 className={cn(
                   "inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium",

@@ -19,7 +19,7 @@ export default function TrackingPage() {
   const { currentParkId } = useCurrentPark();
 
   return (
-    <div className="flex flex-col h-[calc(100vh-70px)]">
+    <div className="flex flex-col h-[calc(100vh-70px-32px)] lg:h-[calc(100vh-70px-48px)]">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-sidebar">
         <div className="flex items-center gap-3">
