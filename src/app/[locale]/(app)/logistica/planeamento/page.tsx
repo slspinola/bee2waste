@@ -187,7 +187,7 @@ export default function PlaneamentoPage() {
         id, numero_rota, status, viatura_id, motorista_id, data_rota, hora_partida,
         rota_paragens(
           id, ordem, pedido_id, status,
-          pedidos_recolha(id, numero_pedido, morada_recolha, cidade_recolha, prioridade, quantidade_estimada_kg, collection_lat, collection_lng, sla_deadline, clients(name))
+          pedidos_recolha:pedido_id(id, numero_pedido, morada_recolha, cidade_recolha, prioridade, quantidade_estimada_kg, collection_lat, collection_lng, sla_deadline, clients:client_id(name))
         )
       `
       )

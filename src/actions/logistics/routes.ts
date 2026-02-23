@@ -40,7 +40,7 @@ export async function createRota(data: z.infer<typeof routeSchema>) {
       org_id,
       numero_rota: numRota,
       status: "draft",
-      criado_por: user.id,
+      created_by: user.id,
     })
     .select()
     .single();

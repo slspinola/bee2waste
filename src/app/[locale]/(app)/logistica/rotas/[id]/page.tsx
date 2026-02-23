@@ -82,11 +82,11 @@ export default function RotaDetailPage({
       .select(
         `
         id, numero_rota, status, data_rota, hora_partida,
-        viaturas(matricula),
-        motoristas(nome),
+        viaturas:viatura_id(matricula),
+        motoristas:motorista_id(nome),
         rota_paragens(
           id, ordem, status, hora_chegada_estimada, hora_chegada_real, hora_saida_real, quantidade_real_kg, notas,
-          pedidos_recolha(id, numero_pedido, morada_recolha, cidade_recolha, quantidade_estimada_kg, clients(name))
+          pedidos_recolha:pedido_id(id, numero_pedido, morada_recolha, cidade_recolha, quantidade_estimada_kg, clients:client_id(name))
         )
       `
       )
