@@ -344,7 +344,7 @@ export default function PlaneamentoPage() {
     ) ?? 0;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-70px-32px)] lg:h-[calc(100vh-70px-48px)]">
+    <div className="flex flex-col h-[calc(100vh-70px)] -mx-4 lg:-mx-6 -my-4 lg:-my-6">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-border bg-sidebar shrink-0">
         <div className="flex items-center gap-3">
@@ -423,7 +423,7 @@ export default function PlaneamentoPage() {
       {/* Three-panel layout */}
       <div className="flex flex-1 overflow-hidden">
         {/* LEFT: Pedidos pendentes */}
-        <div className="w-80 shrink-0 border-r border-border bg-card overflow-y-auto flex flex-col">
+        <div className="w-72 shrink-0 border-r border-border bg-card overflow-y-auto flex flex-col">
           <div className="px-4 py-3 border-b border-border sticky top-0 bg-card z-10">
             <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <List className="h-4 w-4" />
@@ -509,7 +509,7 @@ export default function PlaneamentoPage() {
         </div>
 
         {/* RIGHT: Route builder */}
-        <div className="w-80 shrink-0 border-l border-border bg-card overflow-y-auto flex flex-col">
+        <div className="w-72 shrink-0 border-l border-border bg-card overflow-y-auto flex flex-col">
           {!rota ? (
             <div className="flex-1 flex items-center justify-center p-6 text-center text-muted-foreground text-sm">
               Crie ou selecione uma rota para começar o planeamento
