@@ -79,7 +79,14 @@
     "allParks": "All Parks",
     "profile": "Profile",
     "theme": "Theme",
-    "language": "Language"
+    "language": "Language",
+    "logistics": "Logistics",
+    "logistics_orders": "Collection Orders",
+    "logistics_planning": "Planning",
+    "logistics_tracking": "Tracking",
+    "logistics_vehicles": "Vehicles",
+    "logistics_drivers": "Drivers",
+    "logistics_dashboard": "Dashboard"
   },
   "dashboard": {
     "title": "Dashboard",

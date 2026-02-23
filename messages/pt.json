@@ -80,7 +80,14 @@
     "allParks": "Todos os Parques",
     "profile": "Perfil",
     "theme": "Tema",
-    "language": "Idioma"
+    "language": "Idioma",
+    "logistics": "Logística",
+    "logistics_orders": "Pedidos de Recolha",
+    "logistics_planning": "Planeamento",
+    "logistics_tracking": "Tracking",
+    "logistics_vehicles": "Viaturas",
+    "logistics_drivers": "Motoristas",
+    "logistics_dashboard": "Dashboard"
   },
   "dashboard": {
     "title": "Painel de Controlo",

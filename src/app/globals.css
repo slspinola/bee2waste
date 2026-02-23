@@ -379,3 +379,8 @@
     line-height: 1.6;
   }
 }
+
+/* Leaflet marker icon fix */
+.leaflet-default-icon-path {
+  background-image: none;
+}

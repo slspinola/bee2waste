@@ -41,3 +41,4 @@ supabase/.temp/
 # Claude / MCP tool logs
 .playwright-mcp/
 .claude/
+.backups/

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, use } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/navigation";
-import { ArrowLeft, Truck, Scale, ClipboardCheck, Package, Layers3 } from "lucide-react";
+import { ArrowLeft, Truck, Scale, ClipboardCheck, Package, Layers3, ClipboardList } from "lucide-react";
 import { EntryTimeline } from "@/components/entries/entry-timeline";
 
 interface EntryDetail {
@@ -53,6 +53,13 @@ export default function EntryDetailPage({
     lqi_grade: string | null;
     allowed_ler_codes: string[];
   } | null>(null);
+  const [pedidoRecolha, setPedidoRecolha] = useState<{
+    id: string;
+    numero_pedido: string;
+    status: string;
+    morada_recolha: string;
+    prioridade: string;
+  } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -89,6 +96,32 @@ export default function EntryDetailPage({
           lot_id: lotEntryData.lot_id,
           ...lotEntryData.lots,
         });
+      }
+
+      // Fetch associated pedido de recolha (if any)
+      const { data: entryPedido } = await supabase
+        .from("entries")
+        .select("pedido_recolha_id")
+        .eq("id", id)
+        .single();
+
+      if (entryPedido?.pedido_recolha_id) {
+        const { data: pedido } = await supabase
+          .from("pedidos_recolha")
+          .select("id, numero_pedido, status, morada_recolha, prioridade")
+          .eq("id", entryPedido.pedido_recolha_id)
+          .single();
+        if (pedido) {
+          setPedidoRecolha(
+            pedido as {
+              id: string;
+              numero_pedido: string;
+              status: string;
+              morada_recolha: string;
+              prioridade: string;
+            }
+          );
+        }
       }
 
       setIsLoading(false);
@@ -259,6 +292,69 @@ export default function EntryDetailPage({
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">— Sem lote associado</p>
+            )}
+          </div>
+
+          <div className="rounded-lg border border-border bg-card p-6 space-y-4">
+            <h3 className="font-semibold flex items-center gap-2">
+              <ClipboardList className="h-4 w-4" /> Pedido de Recolha
+            </h3>
+            {pedidoRecolha ? (
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={`/logistica/pedidos/${pedidoRecolha.id}`}
+                    className="font-medium font-mono text-primary hover:underline"
+                  >
+                    {pedidoRecolha.numero_pedido}
+                  </Link>
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
+                      pedidoRecolha.status === "completed"
+                        ? "bg-green-100 text-green-700"
+                        : pedidoRecolha.status === "failed"
+                        ? "bg-red-100 text-red-700"
+                        : pedidoRecolha.status === "at_client"
+                        ? "bg-purple-100 text-purple-700"
+                        : pedidoRecolha.status === "planned"
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {pedidoRecolha.status === "completed"
+                      ? "Concluído"
+                      : pedidoRecolha.status === "failed"
+                      ? "Falhado"
+                      : pedidoRecolha.status === "at_client"
+                      ? "No Cliente"
+                      : pedidoRecolha.status === "planned"
+                      ? "Planeado"
+                      : pedidoRecolha.status === "pending"
+                      ? "Pendente"
+                      : pedidoRecolha.status}
+                  </span>
+                  {pedidoRecolha.prioridade !== "normal" && (
+                    <span
+                      className={`text-xs font-medium ${
+                        pedidoRecolha.prioridade === "critical"
+                          ? "text-red-600"
+                          : "text-yellow-600"
+                      }`}
+                    >
+                      {pedidoRecolha.prioridade === "critical"
+                        ? "Crítico"
+                        : "Urgente"}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {pedidoRecolha.morada_recolha}
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                — Sem pedido de recolha associado
+              </p>
             )}
           </div>
         </div>
