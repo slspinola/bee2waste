@@ -57,7 +57,7 @@ export default function LoginPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
+          <div className="space-y-2" suppressHydrationWarning>
             <label
               htmlFor="email"
               className="text-sm font-medium text-foreground"
@@ -73,10 +73,11 @@ export default function LoginPage() {
               autoComplete="email"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               placeholder="email@exemplo.com"
+              suppressHydrationWarning
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2" suppressHydrationWarning>
             <label
               htmlFor="password"
               className="text-sm font-medium text-foreground"
@@ -91,6 +92,7 @@ export default function LoginPage() {
               required
               autoComplete="current-password"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              suppressHydrationWarning
             />
           </div>
 

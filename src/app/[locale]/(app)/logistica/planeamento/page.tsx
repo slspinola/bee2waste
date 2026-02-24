@@ -344,7 +344,7 @@ export default function PlaneamentoPage() {
     ) ?? 0;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-70px)] -mx-4 lg:-mx-6 -my-4 lg:-my-6">
+    <div className="flex flex-col h-[calc(100vh-70px-32px)] lg:h-[calc(100vh-70px-48px)]">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-3 border-b border-border bg-sidebar shrink-0">
         <div className="flex items-center gap-3">
