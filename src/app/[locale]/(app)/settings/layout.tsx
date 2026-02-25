@@ -11,6 +11,8 @@ import {
   Scale,
   Users,
   Layers3,
+  Camera,
+  Tags,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +23,8 @@ const SETTINGS_NAV = [
   { key: "storageAreas", href: "/settings/areas", icon: Warehouse },
   { key: "zones", href: "/settings/zones", icon: Layers3 },
   { key: "scales", href: "/settings/scales", icon: Scale },
+  { key: "cameras", href: "/settings/cameras", icon: Camera },
+  { key: "contaminants", href: "/settings/contaminants", icon: Tags },
   { key: "users", href: "/settings/users", icon: Users },
 ] as const;
 

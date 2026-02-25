@@ -6,9 +6,12 @@ import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Truck, Scale, ClipboardCheck, Package, Layers3, ClipboardList } from "lucide-react";
 import { EntryTimeline } from "@/components/entries/entry-timeline";
+import { VisionSection } from "@/components/entries/VisionSection";
+import type { EntradaVisionReading } from "@/types/brighterbins";
 
 interface EntryDetail {
   id: string;
+  park_id: string;
   entry_number: string;
   status: string;
   vehicle_plate: string | null;
@@ -60,6 +63,9 @@ export default function EntryDetailPage({
     morada_recolha: string;
     prioridade: string;
   } | null>(null);
+  const [visionReadings, setVisionReadings] = useState<EntradaVisionReading[]>([]);
+  const [hasCameraConfigured, setHasCameraConfigured] = useState(false);
+  const [lastSyncAt, setLastSyncAt] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -121,6 +127,41 @@ export default function EntryDetailPage({
               prioridade: string;
             }
           );
+        }
+      }
+
+      // Fetch vision readings + associated devices in parallel (after we have entry.park_id)
+      if (data) {
+        const [visionResult, devicesResult] = await Promise.all([
+          supabase
+            .from("entrada_vision_readings")
+            .select("*")
+            .eq("entry_id", id)
+            .order("uplink_time", { ascending: false }),
+          supabase
+            .from("park_brighterbins_devices")
+            .select("device_id")
+            .eq("park_id", data.park_id)
+            .eq("is_active", true)
+            .limit(1),
+        ]);
+
+        setVisionReadings((visionResult.data ?? []) as EntradaVisionReading[]);
+        const deviceIds = (devicesResult.data ?? []).map(
+          (d: { device_id: string }) => d.device_id
+        );
+        setHasCameraConfigured(deviceIds.length > 0);
+
+        // Fetch last sync at (sequential — needs device IDs)
+        if (deviceIds.length > 0) {
+          const { data: syncState } = await supabase
+            .from("brighterbins_sync_state")
+            .select("last_sync_at")
+            .in("device_id", deviceIds)
+            .order("last_sync_at", { ascending: false })
+            .limit(1)
+            .maybeSingle();
+          setLastSyncAt(syncState?.last_sync_at ?? null);
         }
       }
 
@@ -293,6 +334,15 @@ export default function EntryDetailPage({
             ) : (
               <p className="text-sm text-muted-foreground">— Sem lote associado</p>
             )}
+          </div>
+
+          <div>
+            <VisionSection
+              readings={visionReadings}
+              hasCameraConfigured={hasCameraConfigured}
+              parkId={entry.park_id}
+              lastSyncAt={lastSyncAt}
+            />
           </div>
 
           <div className="rounded-lg border border-border bg-card p-6 space-y-4">

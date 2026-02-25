@@ -8,11 +8,13 @@ import { Link } from "@/i18n/navigation";
 const ROUTE_LABELS: Record<string, string> = {
   dashboard: "nav.dashboard",
   entries: "nav.entries",
+  cameras: "nav.cameras",
   classification: "nav.classification",
   exits: "nav.exits",
   stock: "nav.stock",
   clients: "nav.clients",
   settings: "nav.settings",
+  logistica: "nav.logistics",
 };
 
 export function Breadcrumbs() {

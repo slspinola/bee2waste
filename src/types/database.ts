@@ -244,6 +244,36 @@ export type Database = {
           },
         ]
       }
+      brighterbins_sync_state: {
+        Row: {
+          created_at: string
+          device_id: string
+          device_name: string | null
+          id: string
+          last_sync_at: string | null
+          last_uplink_ts: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          device_id: string
+          device_name?: string | null
+          id?: string
+          last_sync_at?: string | null
+          last_uplink_ts?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          device_name?: string | null
+          id?: string
+          last_sync_at?: string | null
+          last_uplink_ts?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       classification_lines: {
         Row: {
           created_at: string
@@ -618,6 +648,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      contaminant_labels: {
+        Row: {
+          api_key: string
+          color: string | null
+          label_en: string | null
+          label_pt: string
+          updated_at: string
+        }
+        Insert: {
+          api_key: string
+          color?: string | null
+          label_en?: string | null
+          label_pt: string
+          updated_at?: string
+        }
+        Update: {
+          api_key?: string
+          color?: string | null
+          label_en?: string | null
+          label_pt?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       contract_prices: {
         Row: {
@@ -1024,6 +1078,96 @@ export type Database = {
           },
           {
             foreignKeyName: "egar_records_park_id_fkey"
+            columns: ["park_id"]
+            isOneToOne: false
+            referencedRelation: "parks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      entrada_vision_readings: {
+        Row: {
+          annotated_img_url: string | null
+          battery_level: number | null
+          battery_type: string | null
+          bin_id: string | null
+          contamination: string[] | null
+          contamination_count: number
+          created_at: string
+          device_id: string
+          device_name: string | null
+          entry_id: string | null
+          fill_level: number | null
+          flash_on: boolean | null
+          id: string
+          image_quality: string | null
+          image_resolution: string | null
+          image_url: string | null
+          orientation: string | null
+          park_id: string
+          synced_at: string
+          temperature: number | null
+          uplink_time: string
+          uplink_time_ms: number
+        }
+        Insert: {
+          annotated_img_url?: string | null
+          battery_level?: number | null
+          battery_type?: string | null
+          bin_id?: string | null
+          contamination?: string[] | null
+          contamination_count?: number
+          created_at?: string
+          device_id: string
+          device_name?: string | null
+          entry_id?: string | null
+          fill_level?: number | null
+          flash_on?: boolean | null
+          id?: string
+          image_quality?: string | null
+          image_resolution?: string | null
+          image_url?: string | null
+          orientation?: string | null
+          park_id: string
+          synced_at?: string
+          temperature?: number | null
+          uplink_time: string
+          uplink_time_ms: number
+        }
+        Update: {
+          annotated_img_url?: string | null
+          battery_level?: number | null
+          battery_type?: string | null
+          bin_id?: string | null
+          contamination?: string[] | null
+          contamination_count?: number
+          created_at?: string
+          device_id?: string
+          device_name?: string | null
+          entry_id?: string | null
+          fill_level?: number | null
+          flash_on?: boolean | null
+          id?: string
+          image_quality?: string | null
+          image_resolution?: string | null
+          image_url?: string | null
+          orientation?: string | null
+          park_id?: string
+          synced_at?: string
+          temperature?: number | null
+          uplink_time?: string
+          uplink_time_ms?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entrada_vision_readings_entry_id_fkey"
+            columns: ["entry_id"]
+            isOneToOne: false
+            referencedRelation: "entries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entrada_vision_readings_park_id_fkey"
             columns: ["park_id"]
             isOneToOne: false
             referencedRelation: "parks"
@@ -1974,6 +2118,51 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      park_brighterbins_devices: {
+        Row: {
+          added_at: string
+          added_by: string | null
+          device_id: string
+          device_name: string
+          id: string
+          is_active: boolean
+          park_id: string
+        }
+        Insert: {
+          added_at?: string
+          added_by?: string | null
+          device_id: string
+          device_name: string
+          id?: string
+          is_active?: boolean
+          park_id: string
+        }
+        Update: {
+          added_at?: string
+          added_by?: string | null
+          device_id?: string
+          device_name?: string
+          id?: string
+          is_active?: boolean
+          park_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "park_brighterbins_devices_added_by_fkey"
+            columns: ["added_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "park_brighterbins_devices_park_id_fkey"
+            columns: ["park_id"]
+            isOneToOne: false
+            referencedRelation: "parks"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       park_ler_authorizations: {
         Row: {
@@ -3215,6 +3404,13 @@ export type Database = {
       generate_lot_number: { Args: { p_park_id: string }; Returns: string }
       generate_numero_pedido: { Args: { p_park_id: string }; Returns: string }
       generate_numero_rota: { Args: { p_park_id: string }; Returns: string }
+      get_top_contaminants: {
+        Args: { days: number; p_park_id: string }
+        Returns: {
+          contaminant: string
+          count: number
+        }[]
+      }
       get_user_org_id: { Args: never; Returns: string }
       link_user_to_demo_org: { Args: { p_email: string }; Returns: undefined }
       log_audit: {

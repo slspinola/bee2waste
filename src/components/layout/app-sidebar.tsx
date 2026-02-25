@@ -21,12 +21,16 @@ import {
   BarChart2,
   UserCheck,
   ChevronDown,
+  Camera,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
-  { key: "dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { key: "entries", href: "/entries", icon: ArrowDownToLine },
+const ENTRIES_ITEMS = [
+  { key: "entries_records", href: "/entries", icon: ClipboardList },
+  { key: "cameras", href: "/cameras", icon: Camera },
+] as const;
+
+const NAV_ITEMS_MAIN = [
   { key: "classification", href: "/classification", icon: Layers },
   { key: "lots", href: "/lots", icon: Boxes },
   { key: "exits", href: "/exits", icon: ArrowUpFromLine },
@@ -46,9 +50,17 @@ const LOGISTICS_ITEMS = [
 export function AppSidebar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
+
+  const isEntriesActive =
+    pathname.includes("/entries") || pathname.includes("/cameras");
   const isLogisticsActive = pathname.includes("/logistica");
 
+  const [entriesOpen, setEntriesOpen] = useState(isEntriesActive);
   const [logisticsOpen, setLogisticsOpen] = useState(isLogisticsActive);
+
+  useEffect(() => {
+    if (isEntriesActive) setEntriesOpen(true);
+  }, [isEntriesActive]);
 
   useEffect(() => {
     if (isLogisticsActive) setLogisticsOpen(true);
@@ -67,7 +79,70 @@ export function AppSidebar() {
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <ul className="space-y-1">
-          {NAV_ITEMS.map((item) => {
+          {/* Dashboard */}
+          <li>
+            <Link
+              href="/dashboard"
+              className={cn(
+                "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
+                pathname.includes("/dashboard")
+                  ? "bg-primary-surface text-primary"
+                  : "text-muted-foreground hover:bg-accent hover:text-foreground"
+              )}
+            >
+              <LayoutDashboard className="h-5 w-5 flex-shrink-0" />
+              {t("dashboard")}
+            </Link>
+          </li>
+
+          {/* Entries Group */}
+          <li>
+            <button
+              onClick={() => setEntriesOpen((o) => !o)}
+              className={cn(
+                "flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
+                isEntriesActive
+                  ? "bg-primary-surface text-primary"
+                  : "text-muted-foreground hover:bg-accent hover:text-foreground"
+              )}
+            >
+              <ArrowDownToLine className="h-5 w-5 flex-shrink-0" />
+              <span className="flex-1 text-left">{t("entries")}</span>
+              <ChevronDown
+                className={cn(
+                  "h-4 w-4 flex-shrink-0 transition-transform duration-200",
+                  entriesOpen && "rotate-180"
+                )}
+              />
+            </button>
+            {entriesOpen && (
+              <ul className="mt-1 space-y-1 pl-4">
+                {ENTRIES_ITEMS.map((item) => {
+                  const isActive = pathname.includes(item.href);
+                  const Icon = item.icon;
+                  return (
+                    <li key={item.key}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary-surface text-primary"
+                            : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                        )}
+                      >
+                        <Icon className="h-4 w-4 flex-shrink-0" />
+                        {t(item.key)}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </li>
+
+          {/* Main nav items */}
+          {NAV_ITEMS_MAIN.map((item) => {
             const isActive = pathname.includes(item.href);
             const Icon = item.icon;
             return (
@@ -88,7 +163,7 @@ export function AppSidebar() {
             );
           })}
 
-          {/* Logistics Group */}
+          {/* Recolhas (Logistics) Group */}
           <li>
             <button
               onClick={() => setLogisticsOpen((o) => !o)}

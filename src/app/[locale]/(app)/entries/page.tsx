@@ -21,7 +21,6 @@ interface Entry {
   client_id: string | null;
   entity_name: string | null;
   entity_nif: string | null;
-  clients: { name: string; nif: string | null } | null;
 }
 
 const STATUS_CONFIG: Record<string, { label: string; icon: typeof Clock; className: string }> = {
@@ -51,7 +50,7 @@ export default function EntriesPage() {
       const supabase = createClient();
       const { data } = await supabase
         .from("entries")
-        .select("id, entry_number, status, vehicle_plate, egar_number, ler_code, net_weight_kg, created_at, client_id, entity_name, entity_nif, clients(name, nif)")
+        .select("id, entry_number, status, vehicle_plate, egar_number, ler_code, net_weight_kg, created_at, client_id, entity_name, entity_nif")
         .eq("park_id", currentParkId)
         .order("created_at", { ascending: false })
         .limit(100) as { data: Entry[] | null };
@@ -61,7 +60,7 @@ export default function EntriesPage() {
   }, [currentParkId]);
 
   const filtered = entries.filter((e) => {
-    const entityLabel = e.clients?.name || e.entity_name || "";
+    const entityLabel = e.entity_name || "";
     const matchesSearch =
       !search ||
       e.entry_number.toLowerCase().includes(search.toLowerCase()) ||
@@ -150,8 +149,8 @@ export default function EntriesPage() {
             {filtered.map((entry) => {
               const statusCfg = STATUS_CONFIG[entry.status] || STATUS_CONFIG.draft;
               const StatusIcon = statusCfg.icon;
-              const clientName = entry.clients?.name || entry.entity_name;
-              const clientNif = entry.clients?.nif || entry.entity_nif;
+              const clientName = entry.entity_name;
+              const clientNif = entry.entity_nif;
               const isAdhoc = !entry.client_id && !!entry.entity_name;
               return (
                 <tr key={entry.id} className="border-b border-border last:border-0 hover:bg-accent/50">

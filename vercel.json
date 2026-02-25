@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/brighterbins/sync",
+      "schedule": "*/15 * * * *"
+    }
+  ]
+}
